@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>Register Page</title>
+  <script src="Hospital Register java.js" ></script>
+  <link rel="stylesheet" href="Hospital Register.css">
+</head>
+<body>
+  <nav class="navbar fade-in">
+    <a href="home.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+
+  <div class="card button-container">
+    <h2 class="fade-in">REGISTER</h2>
+
+    <form id="registerForm" class="form">
+
+      <!-- FIRST NAME -->
+      <div class="form-row fade-in">
+        <label for="firstName">FIRST NAME:</label>
+        <input type="text" id="firstName" >
+      </div>
+
+      <!-- SURNAME -->
+      <div class="form-row fade-in">
+        <label for="surname">SURNAME:</label>
+        <input type="text" id="surname" >
+      </div>
+
+      <!-- GENDER (with icon) -->
+      <div class="form-row fade-in">
+        <label for="genderGroup">
+          <span class="icon" >
+            <!-- simple inline SVG user icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="icon-svg">
+			<path d="M12 12c2.761 0 5-2.686 5-6s-2.239-6-5-6-5 2.686-5 6 2.239 6 5 6zm0 2c-4.418 0-8 2.239-8 5v3h16v-3c0-2.761-3.582-5-8-5z"/>
+            </svg>
+          </span>
+          GENDER:
+        </label>
+        <div id="genderGroup" class="gender-group">
+          <label class="radio">
+            <input type="radio" name="gender" value="Male">
+            <span class="radio-mark">♂</span> Male
+          </label>
+          <label class="radio">
+            <input type="radio" name="gender" value="Female">
+            <span class="radio-mark">♀</span> Female
+          </label>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-row fade-in">
+        <label for="email">EMAIL:</label>
+        <input type="email" id="email" >
+      </div>
+
+      <!-- ADDRESS -->
+      <div class="form-row fade-in">
+        <label for="address">ADDRESS:</label>
+        <input type="text" id="address" >
+      </div>
+
+      <!-- TELEPHONE -->
+      <div class="form-row fade-in">
+        <label for="phone">TELEPHONE:</label>
+        <input type="tel" id="phone" >
+      </div>
+
+      <!-- PASSWORD (with icon) -->
+      <div class="form-row fade-in">
+        <label for="password">
+          <span class="icon"  title="Password">
+            <!-- padlock icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="icon-svg">
+			<path d="M17 8h-1V6a4 4 0 10-8 0v2H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V10a2 2 0 00-2-2zm-6 0V6a2 2 0 114 0v2h-4z"/>
+            </svg>
+          </span>
+          PASSWORD:
+        </label>
+        <div class="stacked">
+          <input type="password" id="password" oninput="PasswordStrength(); " >
+          <meter id="strengthMeter" min="0" max="4" value="0"></meter>
+          <p id="strengthText" class="hint"></p>
+        </div>
+      </div>
+
+      <!-- CONFIRM PASSWORD (with icon) -->
+      <div class="form-row fade-in">
+        <label for="confirmPassword">
+          <span class="icon" aria-hidden="true" title="Confirm Password">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="icon-svg">
+            <path d="M17 8h-1V6a4 4 0 10-8 0v2H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V10a2 2 0 00-2-2zm-6 0V6a2 2 0 114 0v2h-4z"/>
+            </svg>
+          </span>
+          RE-ENTER PASSWORD:
+        </label>
+        <input type="password" id="confirmPassword" oninput="checkPasswordsMatch();" >
+        <p id="matchMsg" class="hint"></p>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="actions fade-in">
+        <button type="button" onclick="window.location.href='Hospital Login page.html'">Login</button>
+        <button id="registerBtn" type="button" onclick="Register()">Register</button>
+      </div>
+
+    </form>
+
+    <p id="message" style="color:red;"></p>
+  </div>
+</body>
+</html>

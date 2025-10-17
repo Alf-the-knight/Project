@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <script src="Hospital Login java.js"></script>
+  <link rel="stylesheet" href="Hospital log in page.css">
+</head>
+<body>
+    <nav class="navbar fade-in">
+      <a href="home.html">HOME</a>
+      <a href="about.html">ABOUT US</a>
+      <a href="contact.html">CONTACT</a>
+    </nav>
+ 
+    <div class="button-container"> 
+       <h2 class="fade-in">LOGIN</h2>
+
+  
+       <label class="fade-in">USERNAME:</label>
+       <input class="fade-in" type="text" id="username"><br><br>
+
+      <label class="fade-in" >PASSWORD:</label>
+      <input class="fade-in -1" type="password" id="password" oninput="PasswordStrength()"><br><br>
+
+  
+      <button class="fade-in" type="button" onclick="Login()">LOGIN</button>
+	  <button class="fade-in" type="button" onclick= "window.location.href='register.html'">REGISTER</button>
+    </div>
+
+      <p id="message" style="color:red;"></p>
+</body>
+
+
+</html>
