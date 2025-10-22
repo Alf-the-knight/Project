@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dr. Personal Dashboard — Prototype</title>
+  <style>
+    root{
+      --bg:#f6f7fb; --card:#ffffff; --accent:#2563eb; --muted:#6b7280; --glass: rgba(255,255,255,0.6);
+    }
+    [data-theme="dark"]{ --bg:#0b1220; --card:#08121a; --accent:#39a6ff; --muted:#9aa6b2; --glass: rgba(255,255,255,0.03); color:#dbeafe }
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0;background:var(--bg); color: #0f172a}
+    .container{max-width:1100px;margin:28px auto;padding:20px}
+    .header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .avatar{width:76px;height:76px;border-radius:12px;object-fit:cover;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+    h1{font-size:20px;margin:0}
+    .subtitle{color:var(--muted);font-size:13px}
+    .cta-group{display:flex;gap:10px}
+    .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:9px;border:0;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent;border:1px solid rgba(16,24,40,0.06);color:var(--muted);font-weight:600}
+
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(16,24,40,0.06)}
+    .hero-meta{display:flex;gap:12px;align-items:center}
+
+    .section-title{font-size:13px;margin-bottom:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px}
+    .about p{margin:6px 0 0 0;color:var(--muted)}
+
+    .tools{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .tool{padding:12px;border-radius:10px;background:linear-gradient(180deg,var(--glass),transparent);border:1px solid rgba(16,24,40,0.03)}
+    .tool h4{margin:0 0 8px 0}
+
+    .stat-row{display:flex;gap:12px}
+    .stat{flex:1;padding:12px;border-radius:10px;background:linear-gradient(180deg,var(--glass),transparent);text-align:center}
+    .stat h3{margin:6px 0}
+
+    .messages{display:flex;flex-direction:column;gap:10px}
+    .msg{display:flex;gap:10px;align-items:center}
+    .msg .dot{width:10px;height:10px;border-radius:50%}
+
+    /* responsive */
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr}
+      .avatar{width:64px;height:64px}
+    }
+
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:flex;align-items:center;justify-content:center}
+    .modal{background:var(--card);padding:18px;border-radius:12px;width:400px}
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <header class="header">
+      <div class="brand">
+        <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=60" alt="doctor">
+        <div>
+          <h1 id="docName">Dr. A. Smith</h1>
+          <div class="subtitle" id="docTitle">Cardiologist • City General Hospital</div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <button class="btn" id="bookBtn">Book Appointment</button>
+        <button class="btn ghost" id="toggleTheme">Dark</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section class="card hero">
+          <div class="hero-meta">
+            <div style="flex:1">
+              <div class="section-title">About</div>
+              <div class="about">
+                <p id="aboutText">Passionate about patient-first cardiology care. Researcher in interventional cardiology and long-time educator.</p>
+              </div>
+            </div>
+            <div style="width:220px">
+              <div class="section-title">Quick snapshot</div>
+              <div class="stat-row">
+                <div class="stat">
+                  <div class="subtitle">Today</div>
+                  <h3 id="todayApps">6</h3>
+                </div>
+                <div class="stat">
+                  <div class="subtitle">Pending</div>
+                  <h3 id="pendingRequests">2</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">Tools</div>
+          <div class="tools">
+            <div class="tool" id="patientsTool">
+              <h4>Patient Records</h4>
+              <div class="subtitle">Open EHR viewer</div>
+            </div>
+            <div class="tool" id="scheduleTool">
+              <h4>Schedule</h4>
+              <div class="subtitle">Open calendar</div>
+            </div>
+            <div class="tool" id="teleTool">
+              <h4>Telehealth</h4>
+              <div class="subtitle">Start a video consult</div>
+            </div>
+            <div class="tool" id="notesTool">
+              <h4>Research & Notes</h4>
+              <div class="subtitle">Personal quick notes</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">Activity & Notifications</div>
+          <ul id="activityList" style="margin:0;padding-left:16px;color:var(--muted)"></ul>
+        </section>
+
+      </main>
+
+      <aside>
+        <section class="card">
+          <div class="section-title">Messages</div>
+          <div class="messages" id="messages">
+            <!-- messages injected -->
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">Credentials</div>
+          <div style="color:var(--muted);font-size:14px">
+            MD — University of Medicine<br>
+            Fellowship — Interventional Cardiology<br>
+            City General Hospital — Staff
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Modal skeleton -->
+  <div id="modalRoot" style="display:none"></div>
+
+  <script>
+    // Demo data and tiny interactions — edit freely
+    const state = {
+      messages: [
+        {from:'Reception', text:'New referral: John K. — chest pain', unread:true},
+        {from:'Nurse', text:'Lab results available for patient 243', unread:false},
+      ],
+      activity: ['3 test results pending review', 'Tele-consult scheduled 11:30'],
+      theme: 'light'
+    }
+
+    // Render messages
+    function renderMessages(){
+      const wrap = document.getElementById('messages');
+      wrap.innerHTML = '';
+      state.messages.forEach(m => {
+        const el = document.createElement('div');
+        el.className = 'msg card';
+        el.style.display = 'flex';
+        el.innerHTML = `<div style="flex:0 0 44px"><img src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=60' style='width:44px;height:44px;border-radius:8px;object-fit:cover'></div>
+                        <div style='flex:1'><strong>${m.from}</strong><div style='color:var(--muted);font-size:13px'>${m.text}</div></div>
+                        <div style='flex:0 0 10px;display:flex;align-items:center'><div class='dot' style='background:${m.unread?"#ef4444":"#a3a3a3"}'></div></div>`;
+        wrap.appendChild(el);
+      })
+    }
+
+    function renderActivity(){
+      const list = document.getElementById('activityList');
+      list.innerHTML = state.activity.map(a => `<li>${a}</li>`).join('');
+    }
+
+    // Book button opens small modal
+    document.getElementById('bookBtn').addEventListener('click', ()=>{
+      openModal(`<h3>Quick Book</h3><p style='color:var(--muted)'>Pick a slot (demo)</p><div style='display:flex;gap:8px;margin-top:12px'><button class='btn' onclick='confirmBooking()'>Confirm</button><button class='btn ghost' onclick='closeModal()'>Cancel</button></div>`);
+    })
+
+    function confirmBooking(){
+      state.activity.unshift('Manual booking created — demo slot');
+      renderActivity();
+      closeModal();
+    }
+
+    // minimal modal functions
+    function openModal(html){
+      const root = document.getElementById('modalRoot');
+      root.style.display = 'block';
+      root.innerHTML = `<div class='modal-backdrop' onclick='closeModal()'><div class='modal' onclick='event.stopPropagation()'>${html}</div></div>`;
+    }
+    function closeModal(){
+      const root = document.getElementById('modalRoot');
+      root.style.display = 'none';
+      root.innerHTML = '';
+    }
+
+    // Tools click handlers (demo) — in real app they'd route properly
+    document.getElementById('patientsTool').addEventListener('click', ()=>openModal('<h3>Patients</h3><p style="color:var(--muted)">Open patient records — demo</p>'));
+    document.getElementById('scheduleTool').addEventListener('click', ()=>openModal('<h3>Schedule</h3><p style="color:var(--muted)">Open calendar — demo</p>'));
+    document.getElementById('teleTool').addEventListener('click', ()=>openModal('<h3>Telehealth</h3><p style="color:var(--muted)">Start video consult — demo</p>'));
+    document.getElementById('notesTool').addEventListener('click', ()=>openModal('<h3>Notes</h3><p style="color:var(--muted)">Personal notes — demo</p>'));
+
+    // theme toggle
+    document.getElementById('toggleTheme').addEventListener('click', ()=>{
+      const root = document.documentElement;
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      if(state.theme === 'dark') root.setAttribute('data-theme','dark'); else root.removeAttribute('data-theme');
+      document.getElementById('toggleTheme').textContent = state.theme==='dark' ? 'Light' : 'Dark';
+    })
+
+    // initial render
+    renderMessages(); renderActivity();
+  </script>
+</body>
+</html>
