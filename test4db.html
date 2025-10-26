@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Healthcare Management System</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>Healthcare Management System</h1>
+  <p>Manage Doctors, Patients, Medicines, Appointments, and Patient History</p>
+</header>
+
+<section class="control-panel">
+  <h2>Controls</h2>
+  <div class="button-panel">
+    <button onclick="createOrOpenDB()">Create/Open Database</button>
+    <button onclick="getMyData()">Get JSON Data</button>
+    <button onclick="importFetchedData()">Import Fetched Data</button>
+    <button onclick="openModal('patients')">Add Data</button>
+    <button onclick="showAllData()">Show Data</button>
+    <button onclick="queryAllData()">Query All Patients</button>
+    <button onclick="queryPerson()">Query Patient by NHS</button>
+    <button onclick="queryDoctor()">Query Doctor by ID</button>
+    <button onclick="queryMedicine()">Query Medicine by ID</button>
+    <button onclick="queryAppointment()">Query Appointment</button>
+    <button onclick="searchData()">Search Patients</button>
+    <button onclick="clearDatabase()">Clear Database</button>
+    <button onclick="deleteDatabase()">Delete Database</button>
+    <button onclick="closeDatabase()">Close Database</button>
+  </div>
+  <div id="output" class="output"></div>
+</section>
+
+<section class="tabs-section">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="doctors">Doctors</button>
+    <button class="tab-btn" data-tab="medicine">Medicine</button>
+    <button class="tab-btn" data-tab="patients">Patients</button>
+    <button class="tab-btn" data-tab="patientHistory">Patient History</button>
+    <button class="tab-btn" data-tab="appointments">Appointments</button>
+  </div>
+
+  <!-- Doctors Table -->
+  <div id="doctors" class="tab-content active">
+    <div class="table-header">
+      <input type="text" id="doctorSearch" placeholder="Search doctor...">
+      <button onclick="openModal('doctors')">Add Doctor</button>
+    </div>
+    <table id="doctorTable">
+      <thead>
+        <tr><th>ID</th><th>First</th><th>Last</th><th>Email</th><th>Gender</th><th>Address</th><th>Telephone</th><th>Actions</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Medicine Table -->
+  <div id="medicine" class="tab-content">
+    <div class="table-header">
+      <input type="text" id="medicineSearch" placeholder="Search medicine...">
+      <button onclick="openModal('medicine')">Add Medicine</button>
+    </div>
+    <table id="medicineTable">
+      <thead>
+        <tr><th>ID</th><th>Drug</th><th>Actions</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Patients Table -->
+  <div id="patients" class="tab-content">
+    <div class="table-header">
+      <input type="text" id="patientSearch" placeholder="Search patients...">
+      <button onclick="openModal('patients')">Add Patient</button>
+    </div>
+    <table id="patientTable">
+      <thead>
+        <tr><th>ID</th><th>NHS</th><th>Title</th><th>First</th><th>Last</th><th>DOB</th><th>Gender</th><th>Address</th><th>Email</th><th>Telephone</th><th>Actions</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Patient History Table -->
+  <div id="patientHistory" class="tab-content">
+    <div class="table-header">
+      <input type="text" id="historySearch" placeholder="Search history...">
+      <button onclick="openModal('patientHistory')">Add History</button>
+    </div>
+    <table id="historyTable">
+      <thead>
+        <tr><th>NHS</th><th>First</th><th>Last</th><th>Chief Reason</th><th>Medication</th><th>Allergies</th><th>Social</th><th>Medical</th><th>Family</th><th>Actions</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Appointments Table -->
+  <div id="appointments" class="tab-content">
+    <div class="table-header">
+      <input type="text" id="apptSearch" placeholder="Search appointments...">
+      <button onclick="openModal('appointments')">Add Appointment</button>
+    </div>
+    <table id="apptTable">
+      <thead>
+        <tr><th>ID</th><th>Patient NHS</th><th>Patient First</th><th>Patient Last</th><th>Doctor ID</th><th>Doctor First</th><th>Doctor Last</th><th>Date</th><th>Time</th><th>Actions</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3>Edit/Add Record</h3>
+    <div id="modalFields"></div>
+    <div class="modal-buttons">
+      <button id="modalSave">Save</button>
+      <button onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="apptest.js"></script>
+</body>
+</html>
