@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dr. Personal Dashboard — Prototype</title>
+  <style>
+    :root{
+    --bg:#f6f7fb;
+    --card:#ffffff;
+    --accent:#2563eb;
+    --muted:#6b7280;
+    --glass: rgba(255,255,255,0.6);
+  }
+
+  [data-theme="dark"]{
+    --bg:#0b1220;
+    --card:#08121a;
+    --accent:#39a6ff;
+    --muted:#9aa6b2;
+    --glass: rgba(255,255,255,0.03);
+    color:#dbeafe;
+  }
+
+    *{box-sizing:border-box}
+
+    body {
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      margin:0;
+      background:var(--bg);
+      color:#0f172a;
+    }
+
+  * { box-sizing: border-box; }
+
+    .container{
+      max-width:1100px;
+      margin:28px auto;
+      padding:20px
+      }
+
+     .top-nav {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .top-nav img {
+    height: 36px;
+  }
+
+  .top-links {
+    display: flex;
+    gap: 16px;
+  }
+
+  .top-links a {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .search-signin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .search-signin input {
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+  }
+
+  .signin {
+    background-color: var(--accent);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .bottom-nav {
+    background-color: #212121;
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    padding: 8px 0;
+  }
+
+  .bottom-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .bottom-nav a:hover {
+    text-decoration: underline;
+  }
+    h1{
+      font-size:20px;
+      margin:0
+      }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:13px
+      }
+      
+    .cta-group{
+      display:flex;
+      gap:10px
+      }
+
+    .btn{
+      background:var(--accent);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:9px;
+      border:0;
+      cursor:pointer;
+      font-weight:600
+      }
+
+    .btn.ghost{
+      background:transparent;
+      border:1px solid rgba(16,24,40,0.06);
+      color:var(--muted);
+      font-weight:600
+      }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 340px;
+      gap:18px;
+      margin-top:18px
+      }
+
+    .card{
+      background:var(--card);
+      padding:16px;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(16,24,40,0.06)
+      }
+
+    .hero-meta{
+      display:flex;
+      gap:12px;
+      align-items:center
+      }
+
+    .section-title{
+      font-size:13px;
+      margin-bottom:10px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:0.8px
+      }
+
+    .about p{
+      margin:6px 0 0 0;
+      color:var(--muted)
+      }
+
+    .about img{
+      height: 50px;
+      width: 50px;
+      align-self: left;
+
+    }
+
+    .tools{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px
+      }
+
+    .tool{
+      padding:12px;
+      border-radius:10px;
+      background:linear-gradient(180deg,var(--glass),transparent);
+      border:1px solid rgba(16,24,40,0.03)
+      }
+    .tool h4{
+      margin:0 0 8px 0
+      }
+
+    .stat-row{
+      display:flex;
+      gap:12px
+      }
+
+    .stat{
+      flex:1;
+      padding:12px;
+      border-radius:10px;
+      background:linear-gradient(180deg,var(--glass),transparent);
+      text-align:center
+      }
+
+    .stat h3{
+      margin:6px 0
+      }
+
+    .messages{
+      display:flex;
+      flex-direction:column;
+      gap:10px
+      }
+
+    .msg{
+      display:flex;
+      gap:10px;
+      align-items:center
+      }
+
+    .msg .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%
+      }
+
+    /* responsive */
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr}
+      .avatar{width:64px;height:64px}
+      }
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed;
+      inset:0;background:rgba(2,6,23,0.5);
+      display:flex;
+      align-items:center;
+      justify-content:center
+      }
+
+    .modal{
+      background:var(--card);
+      padding:18px;
+      border-radius:12px;
+      width:400px
+      }
+
+    #dbOutput {
+      display:none;
+      max-width:900px;
+      margin:30px auto;
+      }
+      
+    #dbOutput h2 {
+      font-size:20px;
+      color:var(--accent);
+      margin-bottom:12px;
+      }
+    .patient-card {
+      background:var(--card);
+      border-radius:10px;
+      padding:14px 16px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.06);
+      margin-bottom:10px;
+      }
+    .patient-card h3 {
+      margin:0 0 6px 0;
+      color:#0f172a;
+      }
+    .patient-card p {
+      margin:3px 0;
+      color:var(--muted);
+      font-size:14px;
+      }
+    #goBack {
+      margin-top:20px;
+      display:inline-block;
+      background:var(--accent);
+      color:white;
+      border:none;
+      border-radius:8px;
+      padding:10px 14px;
+      cursor:pointer;
+      font-weight:600;
+      }
+  </style>
+</head>
+<body>
+  <header>
+  <!-- Top white bar -->
+  <div class="top-nav">
+    <img src="https://media.istockphoto.com/id/1901718338/vector/caduceus-medical-icon-isolated-on-white-background.webp?s=1024x1024&w=is&k=20&c=u5iaDu-agXy0r3zMyFp5eZlu_QWnq-xXC-rGsA0YjJg=" alt="Logo">
+    
+    <div class="top-links">
+      <a href="#">Home</a>
+      <a href="#">Medicine</a>
+      <a href="#">Profile</a>
+      <a href="#">Appointments</a>
+    </div>
+
+    <div class="search-signin">
+      <input type="text" placeholder="Search...">
+      <a href="#" class="signin">Sign Out</a>
+    </div>
+  </div>
+
+  <!-- Bottom dark bar -->
+  <div class="bottom-nav">
+    <a href="#" onclick="createDatabase()">My Patients</a>
+    <a href="#">Schedule</a>
+    <a href="#">Notifications</a>
+    <a href="#">Requests</a>
+  </div>
+  </header>
+
+    <div class="grid" id="mainContent">
+      <main>
+        <section class="card hero">
+          <div class="hero-meta">
+            <div style="flex:1">
+              <div class="section-title">About</div>
+              <div class="about">
+                <img src="https://plus.unsplash.com/premium_photo-1723514536306-26fe5c4adeb7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWFuJTIwZG9jdG9yfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000" alt="Profile pic">
+                <p id="aboutText">Passionate about patient-first cardiology care. Researcher in interventional cardiology and long-time educator.</p>
+              </div>
+            </div>
+            <div style="width:220px">
+              <div class="section-title">Quick snapshot</div>
+              <div class="stat-row">
+                <div class="stat">
+                  <div class="subtitle">Today</div>
+                  <h3 id="todayApps">6</h3>
+                </div>
+                <div class="stat">
+                  <div class="subtitle">Pending</div>
+                  <h3 id="pendingRequests">2</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">Tools</div>
+          <div class="tools">
+            <div class="tool" id="patientsTool">
+              <h4>Patient Records</h4>
+              <div class="subtitle">Open EHR viewer</div>
+            </div>
+            <div class="tool" id="scheduleTool">
+              <h4>Schedule</h4>
+              <div class="subtitle">Open calendar</div>
+            </div>
+            <div class="tool" id="teleTool">
+              <h4>Telehealth</h4>
+              <div class="subtitle">Start a video consult</div>
+            </div>
+            <div class="tool" id="notesTool">
+              <h4>Research & Notes</h4>
+              <div class="subtitle">Personal quick notes</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">Activity & Notifications</div>
+          <ul id="activityList" style="margin:0;padding-left:16px;color:var(--muted)"></ul>
+        </section>
+
+      </main>
+
+      <aside>
+        <section class="card">
+          <div class="section-title">Messages</div>
+          <div class="messages" id="messages">
+            <!-- messages injected -->
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">Credentials</div>
+          <div style="color:var(--muted);font-size:14px">
+            MD — University of Medicine<br>
+            Fellowship — Interventional Cardiology<br>
+            City General Hospital — Staff
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Modal skeleton -->
+  <div id="modalRoot" style="display:none"></div>
+
+  <div id="dbOutput">
+    <h2>Patient Records</h2>
+    <ul id="dataList"></ul>
+    <button id="goBack" onclick="goBack()">Return to Dashboard</button>
+  </div>
+
+  <script>
+    var db, dbName = 'HospitalDB';
+    var doctor_data, people_data, drug_data;
+    // Demo data and tiny interactions — edit freely
+    const state = {
+      messages: [
+        {from:'Reception', text:'New referral: John K. — chest pain', unread:true},
+        {from:'Nurse', text:'Lab results available for patient 243', unread:false},
+      ],
+      activity: ['3 test results pending review', 'Tele-consult scheduled 11:30'],
+      theme: 'light'
+    }
+
+    // Render messages
+    function renderMessages(){
+      const wrap = document.getElementById('messages');
+      wrap.innerHTML = '';
+      state.messages.forEach(m => {
+        const el = document.createElement('div');
+        el.className = 'msg card';
+        el.style.display = 'flex';
+        el.innerHTML = `<div style="flex:0 0 44px"><img src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=60' style='width:44px;height:44px;border-radius:8px;object-fit:cover'></div>
+                        <div style='flex:1'><strong>${m.from}</strong><div style='color:var(--muted);font-size:13px'>${m.text}</div></div>
+                        <div style='flex:0 0 10px;display:flex;align-items:center'><div class='dot' style='background:${m.unread?"#ef4444":"#a3a3a3"}'></div></div>`;
+        wrap.appendChild(el);
+      })
+    }
+
+    function renderActivity(){
+      const list = document.getElementById('activityList');
+      list.innerHTML = state.activity.map(a => `<li>${a}</li>`).join('');
+    }
+
+    // Book button opens small modal
+    document.getElementById('bookBtn').addEventListener('click', ()=>{
+      openModal(`<h3>Quick Book</h3><p style='color:var(--muted)'>Pick a slot (demo)</p><div style='display:flex;gap:8px;margin-top:12px'><button class='btn' onclick='confirmBooking()'>Confirm</button><button class='btn ghost' onclick='closeModal()'>Cancel</button></div>`);
+    })
+
+    function confirmBooking(){
+      state.activity.unshift('Manual booking created — demo slot');
+      renderActivity();
+      closeModal();
+    }
+
+    // minimal modal functions
+    function openModal(html){
+      const root = document.getElementById('modalRoot');
+      root.style.display = 'block';
+      root.innerHTML = `<div class='modal-backdrop' onclick='closeModal()'><div class='modal' onclick='event.stopPropagation()'>${html}</div></div>`;
+    }
+    function closeModal(){
+      const root = document.getElementById('modalRoot');
+      root.style.display = 'none';
+      root.innerHTML = '';
+    }
+
+    // Tools click handlers (demo) — in real app they'd route properly
+    document.getElementById('patientsTool').addEventListener('click', ()=>openModal('<h3>Patients</h3><p style="color:var(--muted)">Open patient records — demo</p>'));
+    document.getElementById('scheduleTool').addEventListener('click', ()=>openModal('<h3>Schedule</h3><p style="color:var(--muted)">Open calendar — demo</p>'));
+    document.getElementById('teleTool').addEventListener('click', ()=>openModal('<h3>Telehealth</h3><p style="color:var(--muted)">Start video consult — demo</p>'));
+    document.getElementById('notesTool').addEventListener('click', ()=>openModal('<h3>Notes</h3><p style="color:var(--muted)">Personal notes — demo</p>'));
+
+    // theme toggle
+    document.getElementById('toggleTheme').addEventListener('click', ()=>{
+      const root = document.documentElement;
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      if(state.theme === 'dark') root.setAttribute('data-theme','dark'); else root.removeAttribute('data-theme');
+      document.getElementById('toggleTheme').textContent = state.theme==='dark' ? 'Light' : 'Dark';
+    })
+
+    // initial render
+    renderMessages(); renderActivity();
+
+    function createDatabase(){
+      const request=indexedDB.open(dbName,1);
+      request.onerror=()=>console.log('Error opening DB');
+      request.onsuccess=e=>db=e.target.result;
+      request.onupgradeneeded=e=>{
+        db=e.target.result;
+        db.createObjectStore('doctors',{keyPath:'id',autoIncrement:true});
+        db.createObjectStore('people',{keyPath:'id',autoIncrement:true});
+        db.createObjectStore('drugs',{keyPath:'id',autoIncrement:true});
+      };
+
+      Promise.all([
+        fetch('https://raw.githubusercontent.com/Alf-the-knight/Project/refs/heads/WIPs/patients.json').then(r=>r.json())
+      ]).then(([people])=>{
+      people_data=people;
+      const dataList=document.getElementById('dataList');
+      dataList.innerHTML='';
+      people_data.forEach(p=>{
+        const card=document.createElement('div');
+        card.className='patient-card';
+        card.innerHTML=`<h3>${p.First} ${p.Last}</h3>
+        <p><strong>Gender:</strong> ${p.Gender}</p>
+        <p><strong>Address:</strong> ${p.Address}</p>
+        <p><strong>Email:</strong> ${p.Email}</p>
+        <p><strong>Telephone:</strong> ${p.Telephone}</p>`;
+        dataList.appendChild(card);
+      });
+      document.getElementById('mainContent').style.display='none';
+      document.getElementById('dbOutput').style.display='block';
+  });
+}
+    function goBack(){
+       document.getElementById('dbOutput').style.display='none';
+       document.getElementById('mainContent').style.display='grid';
+    }
+    
+  </script>
+</body>
+</html>
