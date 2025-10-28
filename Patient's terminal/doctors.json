@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Sarah Thompson",
+    "specialty": "Cardiology",
+    "email": "sarah.thompson@hospital.com",
+    "phone": "+230 5678 1010"
+  },
+  {
+    "id": 2,
+    "name": "Dr. James Patel",
+    "specialty": "Neurology",
+    "email": "james.patel@hospital.com",
+    "phone": "+230 5678 2020"
+  },
+  {
+    "id": 3,
+    "name": "Dr. Emily Wong",
+    "specialty": "Pediatrics",
+    "email": "emily.wong@hospital.com",
+    "phone": "+230 5678 3030"
+  },
+  {
+    "id": 4,
+    "name": "Dr. Ahmed Khan",
+    "specialty": "General Medicine",
+    "email": "ahmed.khan@hospital.com",
+    "phone": "+230 5678 4040"
+  },
+  {
+    "id": 5,
+    "name": "Dr. Maria Rodrigues",
+    "specialty": "Dermatology",
+    "email": "maria.rodrigues@hospital.com",
+    "phone": "+230 5678 5050"
+  }
+]
