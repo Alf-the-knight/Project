@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <script src="db.js"></script>
+  <script src="ui.js"></script>
+  <script src="profile.js"></script>
+  <script src="Hospital Login java.js" defer></script>
+  <script src="ux.js" defer></script>
+  <link rel="stylesheet" href="Hospital Home.css">
+  <style>
+    /* Centered, polished login card */
+    body { display:flex; align-items:center; justify-content:center; min-height:100vh; background: linear-gradient(135deg, #f6fbff 0%, #eef6ff 100%); font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+    .button-container { background: #fff; padding:28px 34px; border-radius:12px; box-shadow: 0 10px 30px rgba(20,40,80,0.08); width:360px; max-width:92%; text-align:center; }
+    .button-container h2 { margin:0 0 8px 0; font-size:20px; letter-spacing:0.6px; color:#0b3b66; }
+    .button-container label{ display:block; text-align:left; margin-top:10px; color:#333; font-weight:600; }
+    .button-container input[type=text], .button-container input[type=password], .button-container select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e3e8ef; margin-top:6px; box-sizing:border-box; }
+    .button-container button{ margin-top:12px; width:100%; padding:10px 12px; border-radius:8px; border:none; background:linear-gradient(90deg,#1d8cff,#0066ff); color:#fff; font-weight:700; cursor:pointer; box-shadow:0 6px 18px rgba(13,82,217,0.14); }
+    .button-container .btn-secondary{ background:transparent; border:1px solid #cbd8ee; color:#0b3b66; margin-top:8px; font-weight:600; }
+    .navbar { position:fixed; top:18px; left:18px; right:18px; display:flex; gap:12px; }
+    .navbar a{ color:#0b3b66; text-decoration:none; padding:6px 10px; border-radius:6px; background:rgba(255,255,255,0.5); }
+    #message{ margin-top:10px; }
+  </style>
+  <script>
+    // If already logged in, redirect to appropriate dashboard
+    (function(){
+      try {
+        const user = sessionStorage.getItem('user');
+        const role = sessionStorage.getItem('role');
+        if (user && role) {
+          // show quick toast then redirect
+          if (window.ui && ui.showToast) ui.showToast('Already logged in — redirecting...', 'default', 800);
+          setTimeout(()=>{
+            if (role === 'admin') location.href = 'admin.html';
+            else if (role === 'doctor') location.href = 'doctor.html';
+            else if (role === 'patient') location.href = 'patient.html';
+            else location.href = 'Hospital Home.html';
+          }, 700);
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body>
+    <nav  class="navbar fade-in">
+      <a href="Hospital Home.html">HOME</a>
+      <a href="about.html">ABOUT US</a>
+      <a href="contact.html">CONTACT</a>
+    </nav>
+ 
+   <div class="button-container"> 
+     <h2 class="fade-in">LOGIN</h2>
+      <div class="fade-in" style="margin-bottom:10px;">
+        <label for="roleSelect">Login as:</label>
+        <select id="roleSelect">
+          <option value="patient">Existing Patient</option>
+          <option value="doctor">Doctor</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+       <label class="fade-in">USERNAME / EMAIL / NHS:</label>
+       <input class="fade-in" type="text" id="username"><br><br>
+
+      <label class="fade-in" >PASSWORD:</label>
+      <input class="fade-in -1" type="password" id="password" oninput="PasswordStrength()"><br><br>
+
+  
+  <button class="fade-in" type="button" onclick="Login()">LOGIN</button>
+  <button class="fade-in btn-secondary" type="button" onclick="window.location.href='Register.html'">REGISTER (patients only)</button>
+    </div>
+
+      <p id="message" style="color:red;"></p>
+</body>
+
+
+</html>

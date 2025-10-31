@@ -1,0 +1,237 @@
+{
+  "accounts": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin",
+      "lastActive": null
+    },
+    {
+      "username": "dr.jones",
+      "password": "doctorpass",
+      "role": "doctor",
+      "lastActive": null
+    },
+    {
+      "username": "vrilton0@discuz.net",
+      "password": "Dr1@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 1,
+        "name": "Violante Rilton"
+      },
+      "linkedType": "doctor",
+      "linkedId": 1
+    },
+    {
+      "username": "ebeardsworth1@mac.com",
+      "password": "Dr2@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 2,
+        "name": "Ettie Beardsworth"
+      },
+      "linkedType": "doctor",
+      "linkedId": 2
+    },
+    {
+      "username": "emcquillan2@about.me",
+      "password": "Dr3@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 3,
+        "name": "Emera McQuillan"
+      },
+      "linkedType": "doctor",
+      "linkedId": 3
+    },
+    {
+      "username": "nkyrkeman3@foxnews.com",
+      "password": "Dr4@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 4,
+        "name": "Noak Kyrkeman"
+      },
+      "linkedType": "doctor",
+      "linkedId": 4
+    },
+    {
+      "username": "ehandlin4@gravatar.com",
+      "password": "Dr5@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 5,
+        "name": "Erwin Handlin"
+      },
+      "linkedType": "doctor",
+      "linkedId": 5
+    },
+    {
+      "username": "mcaghy5@surveymonkey.com",
+      "password": "Dr6@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 6,
+        "name": "Monah Caghy"
+      },
+      "linkedType": "doctor",
+      "linkedId": 6
+    },
+    {
+      "username": "rphilipard6@mayoclinic.com",
+      "password": "Dr7@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 7,
+        "name": "Rad Philipard"
+      },
+      "linkedType": "doctor",
+      "linkedId": 7
+    },
+    {
+      "username": "zgalloway7@ca.gov",
+      "password": "Dr8@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 8,
+        "name": "Zoe Galloway"
+      },
+      "linkedType": "doctor",
+      "linkedId": 8
+    },
+    {
+      "username": "rblount8@pen.io",
+      "password": "Dr9@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 9,
+        "name": "Rowland Blount"
+      },
+      "linkedType": "doctor",
+      "linkedId": 9
+    },
+    {
+      "username": "spawling9@princeton.edu",
+      "password": "Dr10@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 10,
+        "name": "Si Pawling"
+      },
+      "linkedType": "doctor",
+      "linkedId": 10
+    },
+    {
+      "username": "mharmsona@i2i.jp",
+      "password": "Dr11@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 11,
+        "name": "Merrily Harmson"
+      },
+      "linkedType": "doctor",
+      "linkedId": 11
+    },
+    {
+      "username": "ctoorb@psu.edu",
+      "password": "Dr12@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 12,
+        "name": "Cordell Toor"
+      },
+      "linkedType": "doctor",
+      "linkedId": 12
+    },
+    {
+      "username": "hwillingamc@springer.com",
+      "password": "Dr13@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 13,
+        "name": "Hi Willingam"
+      },
+      "linkedType": "doctor",
+      "linkedId": 13
+    },
+    {
+      "username": "idumberrilld@toplist.cz",
+      "password": "Dr14@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 14,
+        "name": "Irvin Dumberrill"
+      },
+      "linkedType": "doctor",
+      "linkedId": 14
+    },
+    {
+      "username": "sgivese@wsj.com",
+      "password": "Dr15@2025",
+      "role": "doctor",
+      "lastActive": null,
+      "profileRef": {
+        "type": "doctor",
+        "id": 15,
+        "name": "Stafani Gives"
+      },
+      "linkedType": "doctor",
+      "linkedId": 15
+    },
+    {
+      "username": "NHS123456A",
+      "password": "Pt1@2025",
+      "role": "patient",
+      "lastActive": null,
+      "profileRef": {
+        "type": "patient",
+        "nhs": "NHS123456A",
+        "name": "Alice Morgan"
+      },
+      "linkedType": "patient",
+      "linkedId": "NHS123456A"
+    },
+    {
+      "username": "NHS654321B",
+      "password": "Pt2@2025",
+      "role": "patient",
+      "lastActive": null,
+      "profileRef": {
+        "type": "patient",
+        "nhs": "NHS654321B",
+        "name": "Brian Thompson"
+      },
+      "linkedType": "patient",
+      "linkedId": "NHS654321B"
+    }
+  ]
+}

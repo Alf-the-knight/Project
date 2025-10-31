@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dr. Personal Dashboard — Prototype</title>
+  <link rel="stylesheet" href="Hospital Home.css">
+  <link rel="stylesheet" href="ui-ux.css">
+  <script src="ui.js"></script>
+  <script src="profile.js"></script>
+  <script src="ux.js" defer></script>
+  <style>
+    /* small overrides to blend the provided layout with the site theme */
+    .container{max-width:1100px;margin:28px auto;padding:20px}
+    .header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .avatar{width:76px;height:76px;border-radius:12px;object-fit:cover;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+    h1{font-size:20px;margin:0}
+    .subtitle{color:#6b7280;font-size:13px}
+    .cta-group{display:flex;gap:10px}
+    .btn{background:var(--ux-accent);color:#fff;padding:10px 14px;border-radius:9px;border:0;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent;border:1px solid rgba(16,24,40,0.06);color:#6b7280;font-weight:600}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
+    .card{background:var(--ux-card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(16,24,40,0.06)}
+    .section-title{font-size:13px;margin-bottom:10px;color:#6b7280;text-transform:uppercase;letter-spacing:0.8px}
+    .about p{margin:6px 0 0 0;color:#6b7280}
+    .tools{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .tool{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.6),transparent);border:1px solid rgba(16,24,40,0.03)}
+    .tool h4{margin:0 0 8px 0}
+    .stat-row{display:flex;gap:12px}
+    .stat{flex:1;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.6),transparent);text-align:center}
+    .stat h3{margin:6px 0}
+    .messages{display:flex;flex-direction:column;gap:10px}
+    .msg{display:flex;gap:10px;align-items:center}
+    .msg .dot{width:10px;height:10px;border-radius:50%}
+    @media (max-width:880px){ .grid{grid-template-columns:1fr} .avatar{width:64px;height:64px} }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <header class="header">
+      <div class="brand">
+        <img class="avatar" id="docAvatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=60" alt="doctor">
+        <div>
+          <h1 id="docName">Dr. —</h1>
+          <div class="subtitle" id="docTitle">Doctor Dashboard</div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <a class="btn" id="medsBtn" href="medicines.html">Medications</a>
+        <button class="btn" id="manageUnderCareBtn">Manage Under Care</button>
+        <button class="btn ghost" id="logoutBtn">Logout</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section class="card hero">
+          <div class="hero-meta">
+            <div style="flex:1">
+              <div class="section-title">About</div>
+              <div class="about">
+                <p id="aboutText">Doctor profile and quick actions.</p>
+              </div>
+            </div>
+            <div style="width:220px">
+              <div class="section-title">Quick snapshot</div>
+              <div class="stat-row">
+                <div class="stat">
+                  <div class="subtitle">Today</div>
+                  <h3 id="todayApps">0</h3>
+                </div>
+                <div class="stat">
+                  <div class="subtitle">Pending</div>
+                  <h3 id="pendingRequests">0</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tools and Activity sections removed to avoid showing admin-only data to doctors -->
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">Calendar</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <input type="date" id="calendarDate" style="padding:8px;border-radius:8px;border:1px solid #e6eef8" />
+            <button class="btn ghost" id="showDateBtn">Show</button>
+            <div style="flex:1;text-align:right" class="subtitle">Count today: <span id="todayApps">0</span></div>
+          </div>
+          <div id="calendarDayList" style="margin-bottom:8px;color:#6b7280"></div>
+          <ul id="appointmentsList" style="margin:0;padding-left:16px;color:#6b7280"></ul>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">Prescriptions (by you)</div>
+          <ul id="prescriptionsList" style="margin:0;padding-left:16px;color:#6b7280"></ul>
+        </section>
+
+          <section class="card" style="margin-top:14px">
+            <div class="section-title">Current Patients</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:6px 0 10px 0">
+              <label style="font-size:13px;color:#6b7280;display:flex;align-items:center;gap:8px"><input type="checkbox" id="underCareOnlyToggle"> Under Care only</label>
+              <button class="btn ghost btn-small" id="refreshPatientsBtn">Refresh</button>
+            </div>
+            <div id="currentPatientsList" style="margin:0;padding-left:0;color:#6b7280"></div>
+          </section>
+
+      </main>
+
+      <aside>
+        <section class="card">
+          <div class="section-title">Messages</div>
+          <div class="messages" id="messages">
+            <!-- messages injected -->
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">Credentials</div>
+          <div style="color:#6b7280;font-size:14px" id="credsArea">
+            MD — University of Medicine<br>
+            Fellowship — Specialty<br>
+            Hospital — Staff
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Modal root (used for quick modals) -->
+  <div id="modalRoot" style="display:none"></div>
+
+  <script>
+    // Lightweight doctor dashboard integration script
+    (function(){
+      const DB_NAME = 'healthcareDB';
+      let db = null;
+
+      function requireDoctor(){
+        try{
+          const raw = sessionStorage.getItem('user');
+          const role = sessionStorage.getItem('role');
+          if (!raw || role !== 'doctor'){
+            if (window.ui && ui.showToast) ui.showToast('Please sign in as a doctor','default',900);
+            setTimeout(()=> location.href = 'Hospital Login page.html?role=doctor', 600);
+            return null;
+          }
+          return JSON.parse(raw);
+        }catch(e){ console.warn('requireDoctor error', e); return null; }
+      }
+
+      function openDB(){
+        return new Promise((resolve)=>{
+          const req = indexedDB.open(DB_NAME);
+          req.onsuccess = (e)=>{ db = e.target.result; resolve(db); };
+          req.onerror = ()=> resolve(null);
+          req.onupgradeneeded = ()=>{};
+        });
+      }
+
+      function openModal(html){
+        const root = document.getElementById('modalRoot');
+        root.style.display = 'block';
+        root.innerHTML = `<div class='modal-backdrop' onclick='closeModal()'><div class='modal' onclick='event.stopPropagation()'>${html}</div></div>`;
+      }
+
+      function closeModal(){
+        const root = document.getElementById('modalRoot');
+        root.style.display = 'none';
+        root.innerHTML = '';
+      }
+
+      function fetchMedicines(filter){
+        return fetch('medicines.json')
+          .then(r=> r.ok ? r.json() : Promise.reject('no meds'))
+          .then(list => {
+            if (!Array.isArray(list)) return list || [];
+            if (!filter) return list;
+            const f = String(filter||'').toLowerCase();
+            return list.filter(m => (m.Drug||'').toLowerCase().includes(f));
+          }).catch(()=>[]);
+      }
+
+      function viewMedicineDetails(id){
+        fetchMedicines().then(list=>{
+          const med = (list||[]).find(x => (x.id||'').toString() === id.toString());
+          const name = med ? (med.Drug || JSON.stringify(med)) : 'Not found';
+          openModal(`<h3>Medicine details</h3><div style='padding-top:8px'><strong>${(name||'').replace(/</g,'&lt;')}</strong></div><div style='margin-top:12px;text-align:right'><button class='btn ghost' onclick='closeModal()'>Close</button></div>`);
+        }).catch(()=> openModal(`<h3>Medicine details</h3><div style='padding-top:8px'>Failed to load medicine details.</div><div style='margin-top:12px;text-align:right'><button class='btn ghost' onclick='closeModal()'>Close</button></div>`));
+      }
+      window.viewMedicineDetails = viewMedicineDetails;
+
+      function showMedicinesModal(){
+        const html = `
+          <h3>Prescribe medicine</h3>
+          <div style='display:flex;gap:8px;margin-top:8px'>
+            <input id='__medSearch' placeholder='Search medicines...' style='flex:1;padding:8px;border-radius:8px;border:1px solid #e6eef8' />
+            <button class='btn ghost' id='__medSearchBtn'>Search</button>
+          </div>
+          <ul id='__medResults' style='list-style:none;margin:10px 0 0 0;padding:0;max-height:360px;overflow:auto'></ul>
+          <div style='text-align:right;margin-top:12px'><button class='btn ghost' onclick='closeModal()'>Close</button></div>
+        `;
+        openModal(html);
+        const input = document.getElementById('__medSearch');
+        const btn = document.getElementById('__medSearchBtn');
+        const results = document.getElementById('__medResults');
+
+        function renderList(list){
+          if (!results) return;
+          if (!list || list.length === 0) {
+            results.innerHTML = '<li class="empty-message" style="padding:8px;color:#6b7280">No medicines found.</li>';
+            return;
+          }
+          const rows = (list.slice(0,200)).map(m => `
+            <li style="padding:8px;border-bottom:1px solid #f0f3f7;display:flex;justify-content:space-between;align-items:center">
+              <div style="flex:1;padding-right:8px">${(m.Drug||'').replace(/</g,'&lt;')}</div>
+              <div style="flex:0 0 auto">
+                <button class="btn btn-small" data-id="${m.id}" onclick="viewMedicineDetails('${m.id}')">View</button>
+                <button class="btn btn-small" data-id="${m.id}" onclick="prescribeMedicine('${m.id}')" style="margin-left:6px">Prescribe</button>
+              </div>
+            </li>
+          `).join('');
+          results.innerHTML = rows;
+        }
+
+        function doSearch(q){ fetchMedicines(q).then(renderList).catch(()=>renderList([])); }
+        doSearch('');
+        if (btn) btn.addEventListener('click', function(){ doSearch((input||{}).value||''); });
+        if (input) input.addEventListener('keydown', function(e){ if (e.key === 'Enter') doSearch(input.value); });
+      }
+
+      // Prescribe a medicine to a patient: decrement stock, create prescription record
+      function prescribeMedicine(id){
+        const user = requireDoctor(); if (!user) return;
+        const defaultPatient = window.__prescribeToPatient || '';
+        const patientId = defaultPatient || prompt('Enter patient username or NHS to prescribe to:');
+        if (!patientId) return;
+        const dosage = prompt('Enter dosage / instructions (e.g., 1 tablet daily):','As directed');
+
+        const req = indexedDB.open('healthcareDB');
+        req.onupgradeneeded = function(ev){
+          const _db = ev.target.result;
+          try{ if (!_db.objectStoreNames.contains('medicines')) _db.createObjectStore('medicines',{keyPath:'id'});}catch(_){ }
+          try{ if (!_db.objectStoreNames.contains('prescriptions')) _db.createObjectStore('prescriptions',{autoIncrement:true}); }catch(_){ }
+          try{ if (!_db.objectStoreNames.contains('logs')) _db.createObjectStore('logs',{autoIncrement:true}); }catch(_){ }
+          try{ if (!_db.objectStoreNames.contains('restockRequests')) _db.createObjectStore('restockRequests',{autoIncrement:true}); }catch(_){ }
+        };
+        req.onsuccess = function(e){
+          const idb = e.target.result;
+          try{
+            const tx = idb.transaction(['medicines','prescriptions','logs','restockRequests'],'readwrite');
+            const mStore = tx.objectStore('medicines');
+            const pStore = tx.objectStore('prescriptions');
+            const lStore = tx.objectStore('logs');
+            mStore.get(Number(id)).onsuccess = function(ev){
+              const med = ev.target.result;
+              if (!med) {
+                fetch('medicines.json').then(r=>r.json()).then(list=>{
+                  const found = (list||[]).find(x => (x.id||'').toString() === (id||'').toString());
+                  if (found){ if (typeof found.stock === 'undefined') found.stock = found.InitialStock || 10; mStore.put(found); proceed(found); }
+                  else { alert('Medicine not found'); }
+                }).catch(()=> alert('Medicine not found'));
+                return;
+              }
+              proceed(med);
+
+              function proceed(med){
+                if (!med.stock || med.stock <= 0){
+                  alert('Medicine out of stock — restock request will be sent.');
+                  try{ tx.objectStore('restockRequests').add({ medicineId: id, doctor: user.username || user.email || '', ts: new Date().toISOString() }); }catch(_){ }
+                  return;
+                }
+                med.stock = (med.stock || 0) - 1;
+                mStore.put(med);
+                pStore.add({ doctor: user.username || user.email || '', patient: patientId, medicineId: id, medicineName: med.Drug || '', dosage: dosage || '', ts: new Date().toISOString() });
+                lStore.add({ timestamp: new Date().toISOString(), action: `Prescribed ${med.Drug} to ${patientId} by ${user.username||''}` });
+                tx.oncomplete = function(){ if (window.ui && ui.showToast) ui.showToast('Medicine prescribed', 'success', 1400); loadDoctorPrescriptions(); window.__prescribeToPatient = null; };
+              }
+            };
+          }catch(err){ console.error('Prescribe error', err); alert('Failed to prescribe: '+err.message); }
+        };
+      }
+
+      function renderMessages(list){
+        const wrap = document.getElementById('messages'); if(!wrap) return;
+        wrap.innerHTML = '';
+        (list||[]).forEach(m=>{
+          const el = document.createElement('div'); el.className='msg card';
+          el.innerHTML = `<div style="flex:0 0 44px"><img src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=60' style='width:44px;height:44px;border-radius:8px;object-fit:cover'></div>
+            <div style='flex:1'><strong>${(m.name || m.from || 'Unknown').toString().replace(/</g,'&lt;')}</strong><div style='color:#6b7280;font-size:13px'>${((m.message||m.text||'')+'').substring(0,120).replace(/</g,'&lt;')}</div></div>
+            <div style='flex:0 0 10px;display:flex;align-items:center'><div class='dot' style='background:${m.unread?"#ef4444":"#a3a3a3"}'></div></div>`;
+          wrap.appendChild(el);
+        });
+      }
+
+      function firstName(full){
+        if (!full) return '';
+        try{ if (typeof full !== 'string') full = String(full); const parts = full.trim().split(/\s+/); if (parts.length) return parts[0]; return full; }catch(e){ return full; }
+      }
+
+      function loadDoctorAppointments(){
+        const user = requireDoctor(); if (!user) return;
+        const el = document.getElementById('todayApps'); if (!el) return;
+        const listEl = document.getElementById('appointmentsList'); if (!listEl) return;
+        listEl.innerHTML = '';
+        // accumulate apps from multiple sources (IDB, localStorage, appointments.json)
+        let combined = [];
+        const req = indexedDB.open('healthcareDB');
+        req.onsuccess = function(e){
+          const idb = e.target.result;
+          if (!idb){ fallback(); return; }
+          try{
+            if (!idb.objectStoreNames.contains('appointments')){ fallback(); return; }
+            const tx = idb.transaction('appointments','readonly');
+            const store = tx.objectStore('appointments');
+            const apps = [];
+            // get all and filter client-side
+            store.openCursor().onsuccess = function(ev){
+              const c = ev.target.result;
+              if (c){
+                const a = c.value;
+                // match doctor
+                if ((a.doctor||'').toString().toLowerCase() === (user.username||user.email||'').toString().toLowerCase()){
+                  apps.push(a);
+                }
+                c.continue();
+              } else {
+                // done with IDB; now fetch appointments.json and merge
+                fetch('appointments.json').then(r=>r.json()).then(fileApps=>{
+                  try{ (fileApps||[]).forEach(fa => { if ((fa.doctor||'').toString().toLowerCase() === (user.username||user.email||'').toString().toLowerCase()) apps.push(fa); }); }catch(e){}
+                  renderDoctorAppointmentsFromList(apps);
+                }).catch(()=> renderDoctorAppointmentsFromList(apps));
+              }
+            };
+          }catch(err){ console.warn('Load appointments failed', err); fallback(); }
+        };
+
+        req.onerror = function(){ fallback(); };
+
+        function fallback(){
+          try{
+            const raw = localStorage.getItem('appointments')||'[]';
+            let apps = JSON.parse(raw).filter(a => (a.doctor||a.doctorId||'').toString().toLowerCase() === (user.username||user.email||'').toString().toLowerCase());
+            // also merge static file if present
+            fetch('appointments.json').then(r=>r.json()).then(fileApps=>{
+              try{ (fileApps||[]).forEach(fa => { if ((fa.doctor||'').toString().toLowerCase() === (user.username||user.email||'').toString().toLowerCase()) apps.push(fa); }); }catch(e){}
+              renderDoctorAppointmentsFromList(apps);
+            }).catch(()=> renderDoctorAppointmentsFromList(apps));
+          }catch(e){ listEl.innerHTML = '<li class="empty-message">No appointments today.</li>'; }
+        }
+
+        function renderDoctorAppointmentsFromList(apps){
+          const today = new Date().toISOString().split('T')[0];
+          const todayApps = (apps||[]).filter(x => (x.date||'').toString().startsWith(today));
+          el.textContent = todayApps.length;
+          if (!todayApps.length) listEl.innerHTML = '<li class="empty-message">No appointments today.</li>';
+          todayApps.forEach(a => {
+            const pd = getPatientDetails(a);
+            const li = document.createElement('li');
+            li.style.display='flex'; li.style.justifyContent='space-between'; li.style.alignItems='center'; li.style.gap='8px';
+            li.innerHTML = `<div><strong>${a.date} ${a.time||''}</strong> — ${pd.name||a.patient||a.userEmail||''}<div style=\"color:#6b7280;font-size:12px\">DOB: ${pd.dob||'-'} ${pd.nhs?(' • NHS: '+pd.nhs):''}</div></div>`;
+            const actions = document.createElement('div');
+            const addBtn = document.createElement('button'); addBtn.className='btn ghost btn-small'; addBtn.textContent = (String(a.status||'').toLowerCase()==='under care'?'Under Care':'Add Under Care'); addBtn.disabled = String(a.status||'').toLowerCase()==='under care';
+            addBtn.onclick = function(){
+              // prefer matching by keys to handle records coming from file/localStorage without IDs
+              try{ window.markUnderCareKey((a.time||'').replace(/'/g,"&#39;"),(a.patient||a.userEmail||'').replace(/'/g,"&#39;"),(a.date||'').replace(/'/g,"&#39;")); }
+              catch(e){ markUnderCare(a); }
+            };
+            actions.appendChild(addBtn); li.appendChild(actions);
+            listEl.appendChild(li);
+          });
+          // also render current patients list (admitted / under care)
+          renderCurrentPatients(apps || []);
+        }
+      }
+
+      let __patientsIndex = null;
+      function loadPatientsIndex(){
+        if (__patientsIndex) return Promise.resolve(__patientsIndex);
+        return fetch('patients.json').then(r=>r.json()).then(blob=>{
+          const list = Array.isArray(blob) ? blob : (blob.patients||[]);
+          const idx = { byNhs:{}, byUser:{} , byName:{} };
+          (list||[]).forEach(p=>{ if(p.nhs) idx.byNhs[(p.nhs||'').toLowerCase()] = p; if(p.accountUsername) idx.byUser[(p.accountUsername||'').toLowerCase()] = p; if(p.name) idx.byName[(p.name||'').toLowerCase()] = p; });
+          __patientsIndex = idx; return __patientsIndex;
+        }).catch(()=>{ __patientsIndex = {byNhs:{},byUser:{},byName:{}}; return __patientsIndex; });
+      }
+
+      function getPatientDetails(a){
+        const out = { name: a.patientName || a.patient || a.userEmail || '', dob: a.patientDob || '', nhs: a.patientNhs || '', phone: a.patientPhone || '' };
+        if (out.dob && out.nhs) return out;
+        if (!__patientsIndex) return out;
+        const key = (a.patient||a.userEmail||'').toLowerCase();
+        const rec = __patientsIndex.byNhs[key] || __patientsIndex.byUser[key] || __patientsIndex.byName[key];
+        if (rec){ out.name = rec.name || out.name; out.dob = rec.dob || out.dob; out.nhs = rec.nhs || out.nhs; out.phone = rec.phone || out.phone; }
+        return out;
+      }
+
+      function renderCurrentPatients(apps){
+        const user = requireDoctor(); if (!user) return;
+        const container = document.getElementById('currentPatientsList'); if (!container) return;
+        container.innerHTML = '';
+        // patients under care: filter set decides exact vs broad match
+        const onlyToggle = document.getElementById('underCareOnlyToggle');
+        const only = !!(onlyToggle && onlyToggle.checked);
+        const under = (apps||[]).filter(a => {
+          const s = (a.status||'').toString().toLowerCase();
+          if (only) return s === 'under care';
+          return s === 'admitted' || s === 'under care' || s === 'inpatient';
+        });
+        if (!under.length){ container.innerHTML = '<div class="empty-message">No current patients under your care.</div>'; return; }
+        under.forEach(p => {
+          const pd = getPatientDetails(p);
+          const wrap = document.createElement('div'); wrap.style.display='flex'; wrap.style.justifyContent='space-between'; wrap.style.alignItems='center'; wrap.style.padding='8px'; wrap.style.borderBottom='1px solid rgba(255,255,255,0.03)';
+          const left = document.createElement('div'); left.innerHTML = `<div style="font-weight:700">${firstName(pd.name||'Patient')}</div><div style="font-size:12px;color:#9aa6b2">DOB: ${pd.dob||'-'} ${pd.nhs?(' • NHS: '+pd.nhs):''} • Admitted: ${p.date} ${p.time||''}</div>`;
+          const actions = document.createElement('div'); actions.style.display='flex'; actions.style.gap='6px';
+          const presBtn = document.createElement('button'); presBtn.className='btn btn-small'; presBtn.textContent='Prescribe'; presBtn.onclick = function(){ window.__prescribeToPatient = p.patient||p.userEmail||''; showMedicinesModal(); };
+          const noteBtn = document.createElement('button'); noteBtn.className='btn ghost btn-small'; noteBtn.textContent='Send Note'; noteBtn.onclick = function(){ sendNoteToPatient(p.patient||p.userEmail||''); };
+          const disBtn = document.createElement('button'); disBtn.className='btn ghost btn-small'; disBtn.textContent='Discharge'; disBtn.onclick = function(){ if (confirm('Discharge this patient?')) dischargePatient(p); };
+          actions.appendChild(presBtn); actions.appendChild(noteBtn); actions.appendChild(disBtn);
+          wrap.appendChild(left); wrap.appendChild(actions);
+          container.appendChild(wrap);
+        });
+      }
+
+      function markUnderCare(appointment){
+        const user = requireDoctor(); if (!user) return;
+        const req = indexedDB.open(DB_NAME);
+        req.onsuccess = function(e){
+          const idb = e.target.result;
+          try{
+            if (!idb.objectStoreNames.contains('appointments')){ alert('Appointments store missing'); return; }
+            const tx = idb.transaction('appointments','readwrite'); const store = tx.objectStore('appointments');
+            if (appointment && appointment.id){
+              store.get(appointment.id).onsuccess = function(ev){ const a = ev.target.result || appointment; a.status = 'Under Care'; store.put(a); };
+            } else {
+              // brute force find by doctor+patient+date+time
+              store.openCursor().onsuccess = function(ev){ const c = ev.target.result; if (c){ const a = c.value; if ((a.doctor||'').toString().toLowerCase()===(user.username||user.email||'').toString().toLowerCase() && (a.patient||a.userEmail||'')===(appointment.patient||appointment.userEmail||'') && (a.date||'')===(appointment.date||'') && (a.time||'')===(appointment.time||'')) { a.status='Under Care'; store.put(a); } c.continue(); } };
+            }
+            tx.oncomplete = function(){
+              try{
+                const pd = getPatientDetails(appointment || {});
+                const assign = { doctorRef: user.username||user.email||'', patientNhs: pd.nhs||'', patientName: pd.name||'', patientUser: (appointment.patient||appointment.userEmail||''), ts: new Date().toISOString() };
+                queueCareAssignment(assign);
+              }catch(err){}
+              if (window.ui && ui.showToast) ui.showToast('Added to Under Care','success',900);
+              loadDoctorAppointments();
+            };
+          }catch(err){ console.warn('markUnderCare error', err); }
+        };
+      }
+
+      // Queue care assignments for later syncing to doctors.json/patients.json
+      function queueCareAssignment(assign){
+        try{
+          const req = indexedDB.open(DB_NAME);
+          req.onupgradeneeded = function(ev){ const _db = ev.target.result; try{ if (!_db.objectStoreNames.contains('careAssignments')){ _db.createObjectStore('careAssignments', { autoIncrement: true }); } }catch(e){} };
+          req.onsuccess = function(ev){ const _db = ev.target.result; try{
+              if (_db.objectStoreNames.contains('careAssignments')){
+                const tx = _db.transaction('careAssignments','readwrite'); tx.objectStore('careAssignments').add(assign);
+              } else {
+                const items = JSON.parse(localStorage.getItem('careAssignments')||'[]'); items.push(assign); localStorage.setItem('careAssignments', JSON.stringify(items));
+              }
+            }catch(e){ const items = JSON.parse(localStorage.getItem('careAssignments')||'[]'); items.push(assign); localStorage.setItem('careAssignments', JSON.stringify(items)); }
+          };
+        }catch(e){ const items = JSON.parse(localStorage.getItem('careAssignments')||'[]'); items.push(assign); localStorage.setItem('careAssignments', JSON.stringify(items)); }
+      }
+
+      function sendNoteToPatient(patientId){
+        const doc = requireDoctor(); if (!doc) return;
+        const text = prompt('Enter note or message to send to patient:');
+        if (!text) return;
+        const msg = { from: doc.username||doc.email||'doctor', to: patientId, message: text, ts: new Date().toISOString(), unread: true };
+        const req = indexedDB.open(DB_NAME);
+        req.onsuccess = function(e){ try{ const idb = e.target.result; const tx = idb.transaction('contactMessages','readwrite'); tx.objectStore('contactMessages').add(msg); tx.oncomplete = function(){ if (window.ui && ui.showToast) ui.showToast('Message sent', 'success', 900); }; }catch(err){ console.warn('send note err', err); alert('Failed to send note'); } };
+      }
+
+      function dischargePatient(appointment){
+        const doc = requireDoctor(); if (!doc) return;
+        try{
+          const req = indexedDB.open(DB_NAME);
+          req.onsuccess = function(e){ const idb = e.target.result; try{
+            if (!idb.objectStoreNames.contains('appointments')){ alert('Appointments store missing'); return; }
+            const tx = idb.transaction('appointments','readwrite'); const store = tx.objectStore('appointments');
+            // attempt to find appointment by id or by matching doctor+patient+date
+            if (appointment && appointment.id){
+              store.get(appointment.id).onsuccess = function(ev){ const a = ev.target.result; if (!a) { alert('Appointment not found'); return; } a.status = 'Discharged'; store.put(a); tx.oncomplete = function(){ if (window.ui && ui.showToast) ui.showToast('Patient discharged', 'default', 900); loadDoctorAppointments(); }; };
+            } else {
+              // brute-force find matching record
+              store.openCursor().onsuccess = function(ev){ const c = ev.target.result; if (c){ const a = c.value; if ( (a.doctor||'').toString().toLowerCase() === (doc.username||doc.email||'').toString().toLowerCase() && (a.patient||'') === (appointment.patient||appointment.userEmail||'')) { a.status='Discharged'; store.put(a); } c.continue(); } };
+              tx.oncomplete = function(){ if (window.ui && ui.showToast) ui.showToast('Patient discharged', 'default', 900); loadDoctorAppointments(); };
+            }
+          }catch(err){ console.error('discharge err', err); alert('Failed to discharge'); } };
+        }catch(e){ console.error(e); }
+      }
+
+      function loadDoctorPrescriptions(){
+        const user = requireDoctor(); if (!user) return;
+        const listEl = document.getElementById('prescriptionsList'); if (!listEl) return;
+        listEl.innerHTML = '';
+        const req = indexedDB.open('healthcareDB');
+        req.onsuccess = function(e){
+          const idb = e.target.result;
+          try{
+            const tx = idb.transaction('prescriptions','readonly');
+            const store = tx.objectStore('prescriptions');
+            store.openCursor().onsuccess = function(ev){
+              const c = ev.target.result;
+              if (c){
+                const p = c.value;
+                if ((p.doctor||'').toString().toLowerCase() === (user.username||user.email||'').toString().toLowerCase()){
+                  const li = document.createElement('li');
+                  li.innerHTML = `<strong>${p.medicineName}</strong> to ${p.patient} — ${p.dosage} <div style="color:#6b7280;font-size:12px">${p.ts}</div>`;
+                  listEl.appendChild(li);
+                }
+                c.continue();
+              } else {
+                if (!listEl.childElementCount) listEl.innerHTML = '<li class="empty-message">No prescriptions yet.</li>';
+              }
+            };
+          }catch(err){ console.warn('Load prescriptions failed', err); }
+        };
+      }
+
+      // expose prescribe helper for inline onclick
+      window.prescribeMedicine = prescribeMedicine;
+      window.loadDoctorAppointments = loadDoctorAppointments;
+      window.loadDoctorPrescriptions = loadDoctorPrescriptions;
+
+      // doctor manual booking removed from this view
+      // initial state and wiring
+      const state = { messages: [], activity: [] };
+
+      document.addEventListener('DOMContentLoaded', function(){
+        const user = requireDoctor(); if (!user) return;
+  // fill header (use first name)
+  const rawName = user.name || user.username || user.email || 'Doctor';
+  const displayName = (typeof rawName === 'string' ? rawName.split(/\s+/)[0] : rawName);
+  document.getElementById('docName').textContent = `Dr. ${displayName}`;
+        document.getElementById('aboutText').textContent = user.title || 'Welcome to your doctor dashboard.';
+        document.getElementById('docTitle').textContent = user.hospital || 'Provider';
+
+        // wire logout and manage under care
+        const logoutBtn = document.getElementById('logoutBtn'); if (logoutBtn) logoutBtn.addEventListener('click', function(){ try{ sessionStorage.clear(); }catch(e){} if (window.ui) ui.showToast('Logged out','default'); setTimeout(()=> location.href='Hospital Home.html', 500); });
+  const manageBtn = document.getElementById('manageUnderCareBtn');
+        if (manageBtn) manageBtn.addEventListener('click', function(){
+          // open modal listing today's appointments with Add Under Care buttons
+          const today = new Date().toISOString().split('T')[0];
+          // gather appointments similarly to loadDoctorAppointments, but simplified: rely on IDB only for speed
+          const req = indexedDB.open(DB_NAME);
+          req.onsuccess = function(e){
+            const idb = e.target.result; const items = [];
+            function show(items){
+              loadPatientsIndex().then(()=>{
+                const todays = (items||[]).filter(a => (a.date||'')===today);
+                const rows = todays.map(a => { const pd = getPatientDetails(a); const disabled = String(a.status||'').toLowerCase()==='under care'; const t=(a.time||'').replace(/'/g,"&#39;"); const p=(a.patient||a.userEmail||'').replace(/'/g,"&#39;"); const d=(a.date||'').replace(/'/g,"&#39;"); return `<li style='padding:8px;border-bottom:1px solid #f0f3f7;display:flex;justify-content:space-between;align-items:center'><div><strong>${a.time||''}</strong> — ${pd.name||a.patient||a.userEmail||''}<div style='color:#6b7280;font-size:12px'>DOB: ${pd.dob||'-'} ${pd.nhs?('• NHS: '+pd.nhs):''}</div></div><div><button class='btn btn-small' ${disabled?'disabled':''} onclick="markUnderCareKey('${t}','${p}','${d}')">${disabled?'Under Care':'Add'}</button></div></li>`; }).join('');
+                openModal(`<h3>Manage Patients Under Care</h3><div style='max-height:420px;overflow:auto'><ul style='list-style:none;margin:0;padding:0'>${rows || '<li class=\"empty-message\" style=\"padding:8px\">No appointments for today.</li>'}</ul></div><div style='text-align:right;margin-top:12px'><button class='btn ghost' onclick='closeModal()'>Close</button></div>`);
+              });
+            }
+            try{
+              if (idb && idb.objectStoreNames.contains('appointments')){
+                const tx = idb.transaction('appointments','readonly'); const store = tx.objectStore('appointments');
+                store.openCursor().onsuccess = function(ev){ const c = ev.target.result; if (c){ const a = c.value; if ((a.doctor||'').toString().toLowerCase() === (user.username||user.email||'').toString().toLowerCase()) items.push(a); c.continue(); } else { show(items); } };
+              } else { show(items); }
+            }catch(err){ show(items); }
+          };
+        });
+
+        // load patients index for details enrichment
+        loadPatientsIndex();
+        // meds button is a link to medicines.html; booking/tools removed for doctors
+
+  // wire current patients controls
+  const toggle = document.getElementById('underCareOnlyToggle'); if (toggle) toggle.addEventListener('change', ()=> loadDoctorAppointments());
+  const refreshBtn = document.getElementById('refreshPatientsBtn'); if (refreshBtn) refreshBtn.addEventListener('click', ()=> loadDoctorAppointments());
+
+        // Add optional export of care assignments for syncing docs
+        try{
+          const cta = document.querySelector('.cta-group');
+          if (cta){
+            const exportBtn = document.createElement('button');
+            exportBtn.className = 'btn ghost';
+            exportBtn.textContent = 'Export Care Assignments';
+            exportBtn.addEventListener('click', function(){
+              const collected = [];
+              try{
+                const req = indexedDB.open(DB_NAME);
+                req.onsuccess = function(e){ const _db = e.target.result; if (_db && _db.objectStoreNames.contains('careAssignments')){
+                  const tx = _db.transaction('careAssignments','readonly'); const os = tx.objectStore('careAssignments');
+                  os.openCursor().onsuccess = function(ev){ const c = ev.target.result; if (c){ collected.push(c.value); c.continue(); } else { finalize(); } };
+                } else { finalize(); } };
+                req.onerror = finalize;
+              }catch(e){ finalize(); }
+              function finalize(){ try{ const ls = JSON.parse(localStorage.getItem('careAssignments')||'[]'); Array.prototype.push.apply(collected, ls); }catch(e){}
+                const blob = new Blob([JSON.stringify(collected, null, 2)], {type:'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = 'care-assignments.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+                if (window.ui && ui.showToast) ui.showToast('Exported care assignments','default',1000);
+              }
+            });
+            cta.insertBefore(exportBtn, cta.lastElementChild);
+          }
+        }catch(e){}
+
+        // appointment sync and calendar wiring (BroadcastChannel)
+        // populate calendar date picker and listen for cross-tab appointment events
+        (function(){
+          // calendar controls
+          const dateInput = document.getElementById('calendarDate');
+          const showBtn = document.getElementById('showDateBtn');
+          function showAppointmentsForDate(dateStr){
+            const user = requireDoctor(); if (!user) return;
+            const container = document.getElementById('calendarDayList'); if (!container) return;
+            container.innerHTML = '';
+            const req = indexedDB.open(DB_NAME);
+            req.onsuccess = function(e){
+              const idb = e.target.result;
+              if (idb && idb.objectStoreNames && idb.objectStoreNames.contains('appointments')){
+                try{
+                  const tx = idb.transaction('appointments','readonly');
+                  const store = tx.objectStore('appointments');
+                  const items = [];
+                  store.openCursor().onsuccess = function(ev){
+                    const c = ev.target.result;
+                    if (c){ const a = c.value; if ((a.doctor||'').toString().toLowerCase() === (user.username||user.email||'').toString().toLowerCase()) items.push(a); c.continue(); }
+                    else {
+                      // merge with static appointments.json if available
+                      fetch('appointments.json').then(r=>r.json()).then(fileApps=>{
+                        try{ (fileApps||[]).forEach(fa => { if ((fa.doctor||'').toString().toLowerCase() === (user.username||user.email||'').toString().toLowerCase()) items.push(fa); }); }catch(e){}
+                        render(items);
+                      }).catch(()=> render(items));
+                    }
+                  };
+                }catch(err){ console.warn(err); fallback(); }
+              } else { fallback(); }
+            };
+            req.onerror = function(){ fallback(); };
+
+            function fallback(){
+              try{
+                const raw = localStorage.getItem('appointments')||'[]';
+                const apps = JSON.parse(raw).filter(a => (a.doctor||a.doctorId||'').toString().toLowerCase() === (user.username||user.email||'').toString().toLowerCase());
+                render(apps);
+              }catch(e){ container.innerHTML = '<div class="empty-message">No appointments for this day.</div>'; }
+            }
+
+            function render(list){
+              const dayList = (list||[]).filter(x => (x.date||'') === dateStr);
+              if (!dayList.length) { container.innerHTML = '<div class="empty-message">No appointments for this day.</div>'; return; }
+              const ul = document.createElement('ul'); ul.style.paddingLeft='16px';
+              dayList.forEach(a=>{ const li = document.createElement('li'); li.textContent = `${a.time||''} — ${a.patient||a.userEmail||''}`; ul.appendChild(li); });
+              container.appendChild(ul);
+            }
+          }
+
+          if (showBtn && dateInput) showBtn.addEventListener('click', function(){ const d = dateInput.value; if (!d) { if (window.ui) ui.showToast('Pick a date first','default'); return; } showAppointmentsForDate(d); });
+          if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
+          if (dateInput) showAppointmentsForDate(dateInput.value);
+
+          // listen for BroadcastChannel messages about appointment changes
+          try{
+            if ('BroadcastChannel' in window){
+              const bc = new BroadcastChannel('appointments');
+              bc.onmessage = function(ev){ try{ const msg = ev.data || {}; if (msg && msg.type === 'appointment:created'){
+                // refresh doctor lists and current calendar day
+                loadDoctorAppointments();
+                if (dateInput && dateInput.value) showAppointmentsForDate(dateInput.value);
+              } }catch(e){ console.warn('bc msg', e); } };
+            }
+          }catch(e){ /* no BroadcastChannel */ }
+        })();
+
+        // attempt to load messages and activity from IndexedDB
+        openDB().then((idb)=>{
+          if (!idb){
+            // fallback demo messages
+            state.messages = [{from:'Reception', text:'New referral: demo patient — chest pain', unread:true}];
+            renderMessages(state.messages);
+            return;
+          }
+          try{
+            const tx = idb.transaction('contactMessages','readonly');
+            const store = tx.objectStore('contactMessages');
+            const req = store.getAll();
+            req.onsuccess = function(e){ state.messages = e.target.result || []; renderMessages(state.messages); };
+            req.onerror = function(){ state.messages = []; renderMessages(state.messages); };
+          }catch(err){ state.messages = []; renderMessages(state.messages); }
+
+          // admin logs not loaded in doctor dashboard
+        });
+
+        // populate doctor-specific lists
+        loadDoctorAppointments();
+        loadDoctorPrescriptions();
+
+        if (window.ui && ui.showToast) ui.showToast('Logged in as doctor', 'success', 900);
+      });
+
+  // confirmBooking removed
+      window.openModal = openModal;
+      window.closeModal = closeModal;
+      window.showMedicinesModal = showMedicinesModal;
+  window.markUnderCareKey = function(time, patient, date){ try{ markUnderCare({ time: time, patient: patient, userEmail: patient, date: date }); closeModal(); }catch(e){} };
+      window.markUnderCare = markUnderCare;
+    })();
+  </script>
+</body>
+</html>

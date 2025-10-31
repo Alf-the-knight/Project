@@ -1,0 +1,82 @@
+/* ---------- Base layout ---------- */
+* { box-sizing: border-box; }
+
+.button-container {
+  text-align: center;
+  margin-top: 200px;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  
+}
+
+/* your existing body styles (unit fix on margin: 10 ➜ 10px) */
+body {
+  background: linear-gradient(rgba(11,15,18,0.8), rgba(11,15,18,0.8)), url('Pics/Frontpage 5.jpg') center/cover no-repeat;
+  height: 100vh;
+  margin: 10px;
+  font-family: sans-serif;
+  color: #e6eef8;
+  font-weight: 600;
+}
+
+.navbar {
+  width: 100%;
+  backdrop-filter: blur(4px); /* frosted glass effect */
+  text-align: center;
+  padding: 15px 60px;
+  position: fixed; /* keeps nav at top while scrolling */
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 50px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #003399; /* bright blue when hovered */
+  transform: translateY(-2px);
+  text-shadow: none;
+}
+
+
+
+/* ---------- Soft fade-ins for controls ---------- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(60px);
+  animation: fadeUp 600ms  ease-out forwards;
+  
+}
+
+
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Optional button styling ---------- */
+button {
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(90deg, rgba(58,160,255,0.12), rgba(58,160,255,0.18));
+  color: #e6eef8;
+  backdrop-filter: blur(2px);
+  transition: transform 120ms ease, background 120ms ease;
+}
+button:hover { transform: translateY(-1px); background: linear-gradient(90deg, rgba(58,160,255,0.18), rgba(58,160,255,0.22)); }
+button:active { transform: translateY(0); }
+
+/* Strength text color tweak (keeps your red message below) */
+#strengthText { color: #f0f0f0; }

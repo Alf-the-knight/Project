@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact Us — Hospital</title>
+  <link rel="stylesheet" href="Hospital Home.css">
+  <link rel="stylesheet" href="ui-ux.css">
+  <script src="db.js"></script>
+  <script src="ui.js"></script>
+  <script src="profile.js"></script>
+  <script src="ux.js" defer></script>
+</head>
+<body>
+  <nav class="navbar fade-in">
+    <a href="Hospital Home.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+  </nav>
+
+  <div class="centered-page">
+    <main class="centered-card" style="margin-top:24px;">
+      <div class="desc-card card">
+      <h1 class="title" style="color:#003399">Get in touch</h1>
+      <p class="small-note">Questions, feedback or appointment enquiries — send us a message and we'll respond promptly.</p>
+
+      <form id="contactForm" style="margin-top:16px; display:grid; gap:10px; max-width:720px;">
+        <div style="display:flex; gap:8px;">
+          <input id="c_name" type="text" placeholder="Your name" style="flex:1; padding:10px; border-radius:8px;" required>
+          <input id="c_phone" type="tel" placeholder="Phone (optional)" style="width:220px; padding:10px; border-radius:8px;">
+        </div>
+        <input id="c_email" type="email" placeholder="Email" style="padding:10px; border-radius:8px;" required>
+        <textarea id="c_message" rows="6" placeholder="How can we help?" style="padding:10px; border-radius:8px;" required></textarea>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button class="btn" type="button" id="sendContact">Send Message</button>
+          <button class="btn" type="button" id="clearContact">Clear</button>
+          <div class="small-note" style="margin-left:auto;">Or email us at <a href="mailto:info@hospital.example" style="color:var(--ux-accent-2)">info@hospital.example</a></div>
+        </div>
+      </form>
+
+      <div style="margin-top:18px;">
+        <h3>Visit us</h3>
+        <p class="small-note">123 Health Avenue, Caretown — Mon-Fri 08:00–18:00</p>
+        <div style="margin-top:10px; border-radius:8px; overflow:hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
+          <!-- Lightweight OpenStreetMap embed (replace bbox or use Google Maps if you prefer) -->
+          <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1278%2C51.5074%2C-0.1278%2C51.5074&amp;layer=mapnik" aria-hidden="false"></iframe>
+        </div>
+      </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const form = document.getElementById('contactForm');
+      const send = document.getElementById('sendContact');
+      const clear = document.getElementById('clearContact');
+
+      send.addEventListener('click', ()=>{
+        const name = document.getElementById('c_name').value.trim();
+        const email = document.getElementById('c_email').value.trim();
+        const phone = document.getElementById('c_phone').value.trim();
+        const message = document.getElementById('c_message').value.trim();
+        if (!name || !email || !message) { if (window.ui) ui.showToast('Please fill required fields', 'error'); return; }
+        const payload = { name, email, phone, message };
+        if (window.hdb && hdb.addContactMessage) {
+          hdb.addContactMessage(payload).then(() => {
+            if (window.ui) ui.showToast('Message saved — we will reply soon', 'success');
+            form.reset();
+          }).catch(err => {
+            console.warn('Failed to save message to DB', err);
+            // fallback to localStorage
+            try{ const existing = JSON.parse(localStorage.getItem('contactMessages')||'[]'); existing.unshift(Object.assign({ ts: new Date().toISOString() }, payload)); localStorage.setItem('contactMessages', JSON.stringify(existing)); if (window.ui) ui.showToast('Message saved locally (DB failed)', 'default'); form.reset(); }catch(e){ if (window.ui) ui.showToast('Failed to save message', 'error'); }
+          });
+        } else {
+          // fallback localStorage when hdb not available
+          try{ const existing = JSON.parse(localStorage.getItem('contactMessages')||'[]'); existing.unshift(Object.assign({ ts: new Date().toISOString() }, payload)); localStorage.setItem('contactMessages', JSON.stringify(existing)); if (window.ui) ui.showToast('Message saved locally', 'default'); form.reset(); }catch(e){ if (window.ui) ui.showToast('Failed to save message', 'error'); }
+        }
+      });
+
+      clear.addEventListener('click', ()=>{ form.reset(); if (window.ui) ui.showToast('Cleared', 'default'); });
+    });
+  </script>
+</body>
+</html>

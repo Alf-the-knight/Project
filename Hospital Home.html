@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospital Home</title>
+  <link rel="stylesheet" href="Hospital Home.css" />
+  <script src="ui.js"></script>
+  <script src="profile.js"></script>
+  <link rel="stylesheet" href="ui-ux.css">
+  <script src="ux.js" defer></script>
+</head>
+<body>
+  <!-- Fixed navbar -->
+  
+  <nav class="navbar a fade-in">
+     <nav class = "logo"> 
+	 <img src="Pics/Logo png.png" alt="Hospital Logo" class="logo"> 
+	 </nav>
+    <a href="about.html">ABOUT US</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+
+  <!-- Intro card -->
+  <main class="section fade-in">
+    <div class="desc-card">
+      <h1 class = "title" style="color: #003399; text-shadow: 1px 1px 10px white;" >YOUR HEALTH IS OUR CONCERN</h1>
+      <p>Scroll to explore our departments and book an appointment when you're ready.</p>
+    <figure class="dept-media">
+          <img src="Pics/doctors.jpg" alt="Cardiology team reviewing ECG" />
+    </figure>
+	</div>
+  </main>
+
+  <!-- Quick login/register section -->
+  <section class="section fade-in" style="margin-top:20px;">
+    <div id="accessCard" class="desc-card" style="padding:18px; position:relative;">
+      <h2 class="title" style="font-size:20px;">Access your account</h2>
+      <p style="color:#001018; font-weight:600;">Are you a:</p>
+      <div id="accessButtons" style="display:flex; gap:12px; flex-wrap:wrap; margin-top:8px;">
+        <a class="btn" href="Hospital Login page.html?role=patient">Existing Patient Login</a>
+        <a class="btn" href="Hospital Login page.html?role=doctor">Doctor Login</a>
+        <a class="btn" href="Hospital Login page.html?role=admin">Admin Login</a>
+        <a class="btn" href="Register.html">New Patient? Register</a>
+      </div>
+      <p id="accessNote" style="margin-top:10px; color:#001018; opacity:0.9;">Doctors and admins: ask admin to create a clinic account; only patients may self-register.</p>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('resetDemoBtn');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        if (window.ui && ui.confirmDialog) {
+          ui.confirmDialog('This will reset demo data (clear local DB). Continue?').then(ok => {
+            if (!ok) return;
+            if (window.hdb && hdb.resetDatabase) {
+              hdb.resetDatabase().then(() => { if (window.ui) ui.showToast('Demo data reset — reloading', 'default', 1200); setTimeout(()=> location.reload(), 900); }).catch(()=>{ if (window.ui) ui.showToast('Reset failed', 'error', 2000); });
+            }
+          });
+        } else {
+          if (confirm('Reset demo data?')) { indexedDB.deleteDatabase('healthcareDB'); setTimeout(()=> location.reload(), 600); }
+        }
+      });
+    });
+  </script>
+
+  <script>
+    // If already logged in, remove login/register options and show dashboard link
+    (function(){
+      try {
+        const user = sessionStorage.getItem('user');
+        const role = sessionStorage.getItem('role');
+        const accessCard = document.getElementById('accessCard');
+        const accessButtons = document.getElementById('accessButtons');
+        const accessNote = document.getElementById('accessNote');
+        if (user && role && accessCard && accessButtons) {
+          // replace content: show welcome and dashboard link
+          accessButtons.innerHTML = '';
+          const u = JSON.parse(user);
+          const name = u.name || u.username || u.firstName || 'User';
+          const dashLink = document.createElement('a');
+          dashLink.className = 'btn';
+          if (role === 'admin') dashLink.href = 'admin.html';
+          else if (role === 'doctor') dashLink.href = 'doctor.html';
+          else dashLink.href = 'patient.html';
+          dashLink.innerText = 'Go to Dashboard';
+
+          const logoutBtn = document.createElement('button'); logoutBtn.className = 'btn'; logoutBtn.innerText = 'Logout';
+          logoutBtn.onclick = () => { sessionStorage.clear(); if (window.ui && ui.showToast) ui.showToast('Logged out', 'default', 900); setTimeout(()=> location.reload(),700); };
+
+          accessButtons.appendChild(dashLink);
+          accessButtons.appendChild(logoutBtn);
+          accessNote.innerText = 'You are already logged in. Use the Dashboard link or logout to switch accounts.';
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+
+  <!-- Scrollable departments -->
+  <section class="departments" aria-label="Departments">
+
+    <!-- Cardiologist -->
+    <article class="dept fade-in" id="cardiologist">
+      <div class="dept-grid">
+        <div class="dept-text">
+          <h2 class = "title" style="color: #003399; text-shadow: 1px 1px 10px white;">Cardiologist</h2>
+          <p>
+            Heart checkups, ECG, blood pressure control and recovery plans.
+            We focus on prevention, early diagnosis and clear steps you can follow at home.
+          </p>
+          <a class="btn" href="Hospital Login page.html?dept=cardiology">Book Appointment</a>
+        </div>
+        <figure class="dept-media">
+          <img src="Pics/cardiologist.jpg" alt="Cardiology team reviewing ECG" />
+        </figure>
+      </div>
+    </article>
+
+    <!-- Women’s Health -->
+    <article class="dept fade-in" id="womens-health">
+      <div class="dept-grid">
+        <div class="dept-text">
+          <h2 class = "title" style="color: #003399; text-shadow: 1px 1px 10px white;">Women’s Health</h2>
+          <p>
+            Gentle, private care for routine checkups, prenatal support and screenings.
+            We explain every step in simple language and support you through each stage.
+          </p>
+          <a class="btn" href="Hospital Login page.html?dept=womens">Book Appointment</a>
+        </div>
+        <figure class="dept-media">
+          <img src="Pics/women's health.jpg" alt="Women's health consultation" />
+        </figure>
+      </div>
+    </article>
+
+    <!-- Dentistry -->
+    <article class="dept fade-in" id="dentistry">
+      <div class="dept-grid">
+        <div class="dept-text">
+          <h2 class = "title" style="color: #003399; text-shadow: 1px 1px 10px white;">Dentistry</h2>
+          <p>
+            Cleanings, fillings, whitening and pain relief with a calm, friendly approach.
+            We keep visits quick and comfortable with clear after-care tips.
+          </p>
+          <a class="btn" href="Hospital Login page.html?dept=dentistry">Book Appointment</a>
+        </div>
+        <figure class="dept-media">
+          <img src="Pics/dentistry.jpg" alt="Dentist caring for a patient" />
+        </figure>
+      </div>
+    </article>
+
+  </section>
+</body>
+</html>

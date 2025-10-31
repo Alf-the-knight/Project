@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patient Portal</title>
+  <link rel="stylesheet" href="Hospital Home.css">
+  <link rel="stylesheet" href="ui-ux.css">
+  <link rel="stylesheet" href="patient-interface.css">
+  <script src="ui.js"></script>
+  <script src="profile.js"></script>
+  <script src="ux.js" defer></script>
+  <script src="patient-interface.js" defer></script>
+</head>
+<body>
+  <div class="centered-page">
+    <main class="centered-card" style="margin:24px 0;">
+      <div class="container dashboard-container" id="dashboard">
+      <div class="welcome-header">
+        <div>
+          <h2>Welcome, <span id="patient-name"></span>! 👋</h2>
+          <p style="color: #666; font-size: 0.9rem;" id="patient-email"></p>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button class="btn btn-secondary btn-small" id="homeBtn">Home</button>
+          <button class="btn btn-secondary btn-small" id="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>📅 Book an Appointment</h3>
+        <div id="booking-alert"></div>
+        <div class="form-group">
+          <label for="doctor-select">Select Doctor</label>
+          <select id="doctor-select">
+            <option value="">Choose a doctor...</option>
+          </select>
+          <div id="doctors-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:10px"></div>
+        </div>
+        <div class="form-group">
+          <label for="appointment-date">Appointment Date</label>
+          <input type="date" id="appointment-date" />
+        </div>
+        <div class="form-group">
+          <label for="appointment-time">Preferred Time</label>
+          <select id="appointment-time"></select>
+          <div id="slot-help" style="font-size:.9rem;color:#9aa6b2;margin-top:6px">Select a doctor and date to view available slots.</div>
+        </div>
+        <button class="btn" id="book-btn">Book Appointment</button>
+      </div>
+
+      <div class="section">
+        <h3>📋 Your Appointments</h3>
+        <ul id="appointments-list">
+          <li class="empty-message">No appointments scheduled yet.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>💊 Your Prescriptions & Notes</h3>
+        <ul id="notes-list">
+          <li class="empty-message">No prescriptions or notes available yet.</li>
+        </ul>
+      </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

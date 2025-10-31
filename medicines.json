@@ -1,162 +1,487 @@
 [
-    {
-        "id": 1,
-        "Drug": "Nabumetone"
-    },
-    {
-        "id": 2,
-        "Drug": "Vanilla"
-    },
-    {
-        "id": 3,
-        "Drug": "atovaquone and proguanil hydrochloride"
-    },
-    {
-        "id": 4,
-        "Drug": "lorazepam"
-    },
-    {
-        "id": 5,
-        "Drug": "Aconitum napellus, Onion, Arnica montana, Antropa Belladonna, Solanum Dulcamara Top, Eupatorium Cannabinum Whole Flowering, Gelsemium Sempervirens Root"
-    },
-    {
-        "id": 6,
-        "Drug": "BETHANECHOL CHLORIDE"
-    },
-    {
-        "id": 7,
-        "Drug": "Hydrocodone Bitartrate and Acetaminophen"
-    },
-    {
-        "id": 8,
-        "Drug": "alprazolam"
-    },
-    {
-        "id": 9,
-        "Drug": "Acetaminophen, Dextromethorphan HBr, Doxylamine succinate, Phenylephrine HCl"
-    },
-    {
-        "id": 10,
-        "Drug": "Docusate Sodium and Senna"
-    },
-    {
-        "id": 11,
-        "Drug": "DROSERA, ARNICA MONTANA, BRYONIA, CETRARIA ISLANDICA, BELLADONNA, COCCUS CACTI, CORALLIUM RUBRUM, STANNUM METALLICUM, CHAMOMILLA, COFFEA CRUDA"
-    },
-    {
-        "id": 12,
-        "Drug": "Trazodone Hydrochloride"
-    },
-    {
-        "id": 13,
-        "Drug": "Chlordiazepoxide Hydrochloride"
-    },
-    {
-        "id": 14,
-        "Drug": "Trazodone Hydrochloride"
-    },
-    {
-        "id": 15,
-        "Drug": "Magnesium Hydroxide"
-    },
-    {
-        "id": 16,
-        "Drug": "Zinc Oxide"
-    },
-    {
-        "id": 17,
-        "Drug": "TOBRAMYCIN SULFATE"
-    },
-    {
-        "id": 18,
-        "Drug": "Atomoxetine hydrochloride"
-    },
-    {
-        "id": 19,
-        "Drug": "CAMPHOR, EUCALYPTUS OIL and MENTHOL"
-    },
-    {
-        "id": 20,
-        "Drug": "Diphenhydramine Hydrochloride"
-    },
-    {
-        "id": 21,
-        "Drug": "lamotrigine"
-    },
-    {
-        "id": 22,
-        "Drug": "Acetaminophen"
-    },
-    {
-        "id": 23,
-        "Drug": "polyethylene glycol"
-    },
-    {
-        "id": 24,
-        "Drug": "Hydralazine Hydrochloride"
-    },
-    {
-        "id": 25,
-        "Drug": "Ramipril"
-    },
-    {
-        "id": 26,
-        "Drug": "CAMPHOR (NATURAL), MENTHOL,METHYL SALICYLATE"
-    },
-    {
-        "id": 27,
-        "Drug": "Menthol"
-    },
-    {
-        "id": 28,
-        "Drug": "Gabapentin"
-    },
-    {
-        "id": 29,
-        "Drug": "Fexofenadine HCl"
-    },
-    {
-        "id": 30,
-        "Drug": "Famotidine"
-    },
-    {
-        "id": 31,
-        "Drug": "Galantamine hydrobromide"
-    },
-    {
-        "id": 32,
-        "Drug": "RISPERIDONE"
-    },
-    {
-        "id": 33,
-        "Drug": "Amlodipine Besylate"
-    },
-    {
-        "id": 34,
-        "Drug": "OCTINOXATE, OCTISALATE, OXYBENZONE, OCTOCRYLENE, and AVOBENZONE"
-    },
-    {
-        "id": 35,
-        "Drug": "Labetalol Hydrochloride"
-    },
-    {
-        "id": 36,
-        "Drug": "Lovastatin"
-    },
-    {
-        "id": 37,
-        "Drug": "Ethyl Alcohol"
-    },
-    {
-        "id": 38,
-        "Drug": "Bupropion Hydrochloride"
-    },
-    {
-        "id": 39,
-        "Drug": "OXYBENZONE, AVOBENZONE, OCTOCRYLENE"
-    },
-    {
-        "id": 40,
-        "Drug": "Salicylic Acid"
-    }
+  {
+    "id": 1,
+    "Drug": "Nabumetone",
+    "image": "Pics\\meds\\nabumetone.svg",
+    "Form": "Tablet",
+    "Strength": "5 mg",
+    "stock": 10,
+    "Manufacturer": "HealthCorp Laboratories",
+    "Forms": [
+      "Tablet"
+    ]
+  },
+  {
+    "id": 2,
+    "Drug": "Vanilla",
+    "image": "Pics\\meds\\vanilla.svg",
+    "Form": "Tablet",
+    "Strength": "10 mg",
+    "stock": 10,
+    "Manufacturer": "MediPlus Pharma",
+    "Forms": [
+      "Capsule"
+    ]
+  },
+  {
+    "id": 3,
+    "Drug": "atovaquone and proguanil hydrochloride",
+    "image": "Pics\\meds\\atovaquone-and-proguanil-hydrochloride.svg",
+    "Form": "Tablet",
+    "Strength": "25 mg",
+    "stock": 10,
+    "Manufacturer": "Wellness Biotech",
+    "Forms": [
+      "Liquid",
+      "Syrup"
+    ]
+  },
+  {
+    "id": 4,
+    "Drug": "lorazepam",
+    "image": "Pics\\meds\\lorazepam.svg",
+    "Form": "Tablet",
+    "Strength": "50 mg",
+    "stock": 10,
+    "Manufacturer": "CareGenix",
+    "Forms": [
+      "Oral Solution"
+    ]
+  },
+  {
+    "id": 5,
+    "Drug": "Aconitum napellus, Onion, Arnica montana, Antropa Belladonna, Solanum Dulcamara Top, Eupatorium Cannabinum Whole Flowering, Gelsemium Sempervirens Root",
+    "image": "Pics\\meds\\aconitum-napellus-onion-arnica-montana-antropa-belladonna-so.svg",
+    "Form": "Tablet",
+    "Strength": "100 mg",
+    "stock": 10,
+    "Manufacturer": "PharmaNova",
+    "Forms": [
+      "Injection"
+    ]
+  },
+  {
+    "id": 6,
+    "Drug": "BETHANECHOL CHLORIDE",
+    "image": "Pics\\meds\\bethanechol-chloride.svg",
+    "Form": "Tablet",
+    "Strength": "250 mg",
+    "stock": 10,
+    "Manufacturer": "PrimeCare Pharmaceuticals",
+    "Forms": [
+      "Ointment"
+    ]
+  },
+  {
+    "id": 7,
+    "Drug": "Hydrocodone Bitartrate and Acetaminophen",
+    "image": "Pics\\meds\\hydrocodone-bitartrate-and-acetaminophen.svg",
+    "Form": "Tablet",
+    "Strength": "500 mg",
+    "stock": 10,
+    "Manufacturer": "Vitalis Labs",
+    "Forms": [
+      "Cream"
+    ]
+  },
+  {
+    "id": 8,
+    "Drug": "alprazolam",
+    "image": "Pics\\meds\\alprazolam.svg",
+    "Form": "Tablet",
+    "Strength": "5 mg/mL",
+    "stock": 10,
+    "Manufacturer": "Apex Therapeutics",
+    "Forms": [
+      "Gel"
+    ]
+  },
+  {
+    "id": 9,
+    "Drug": "Acetaminophen, Dextromethorphan HBr, Doxylamine succinate, Phenylephrine HCl",
+    "image": "Pics\\meds\\acetaminophen-dextromethorphan-hbr-doxylamine-succinate-phen.svg",
+    "Form": "Tablet",
+    "Strength": "100 mg/mL",
+    "stock": 10,
+    "Manufacturer": "HealthCorp Laboratories",
+    "Forms": [
+      "Drops"
+    ]
+  },
+  {
+    "id": 10,
+    "Drug": "Docusate Sodium and Senna",
+    "image": "Pics\\meds\\docusate-sodium-and-senna.svg",
+    "Form": "Tablet",
+    "Strength": "1% w/w",
+    "stock": 10,
+    "Manufacturer": "MediPlus Pharma",
+    "Forms": [
+      "Tablet"
+    ]
+  },
+  {
+    "id": 11,
+    "Drug": "DROSERA, ARNICA MONTANA, BRYONIA, CETRARIA ISLANDICA, BELLADONNA, COCCUS CACTI, CORALLIUM RUBRUM, STANNUM METALLICUM, CHAMOMILLA, COFFEA CRUDA",
+    "image": "Pics\\meds\\drosera-arnica-montana-bryonia-cetraria-islandica-belladonna.svg",
+    "Form": "Tablet",
+    "Strength": "2% w/w",
+    "stock": 10,
+    "Manufacturer": "Wellness Biotech",
+    "Forms": [
+      "Capsule"
+    ]
+  },
+  {
+    "id": 12,
+    "Drug": "Trazodone Hydrochloride",
+    "image": "Pics\\meds\\trazodone-hydrochloride.svg",
+    "Form": "Tablet",
+    "Strength": "5 mg",
+    "stock": 10,
+    "Manufacturer": "CareGenix",
+    "Forms": [
+      "Liquid",
+      "Syrup"
+    ]
+  },
+  {
+    "id": 13,
+    "Drug": "Chlordiazepoxide Hydrochloride",
+    "image": "Pics\\meds\\chlordiazepoxide-hydrochloride.svg",
+    "Form": "Tablet",
+    "Strength": "10 mg",
+    "stock": 10,
+    "Manufacturer": "PharmaNova",
+    "Forms": [
+      "Oral Solution"
+    ]
+  },
+  {
+    "id": 14,
+    "Drug": "Trazodone Hydrochloride",
+    "image": "Pics\\meds\\trazodone-hydrochloride.svg",
+    "Form": "Tablet",
+    "Strength": "25 mg",
+    "stock": 10,
+    "Manufacturer": "PrimeCare Pharmaceuticals",
+    "Forms": [
+      "Injection"
+    ]
+  },
+  {
+    "id": 15,
+    "Drug": "Magnesium Hydroxide",
+    "image": "Pics\\meds\\magnesium-hydroxide.svg",
+    "Form": "Tablet",
+    "Strength": "50 mg",
+    "stock": 10,
+    "Manufacturer": "Vitalis Labs",
+    "Forms": [
+      "Ointment"
+    ]
+  },
+  {
+    "id": 16,
+    "Drug": "Zinc Oxide",
+    "image": "Pics\\meds\\zinc-oxide.svg",
+    "Form": "Tablet",
+    "Strength": "100 mg",
+    "stock": 10,
+    "Manufacturer": "Apex Therapeutics",
+    "Forms": [
+      "Cream"
+    ]
+  },
+  {
+    "id": 17,
+    "Drug": "TOBRAMYCIN SULFATE",
+    "image": "Pics\\meds\\tobramycin-sulfate.svg",
+    "Form": "Tablet",
+    "Strength": "250 mg",
+    "stock": 10,
+    "Manufacturer": "HealthCorp Laboratories",
+    "Forms": [
+      "Gel"
+    ]
+  },
+  {
+    "id": 18,
+    "Drug": "Atomoxetine hydrochloride",
+    "image": "Pics\\meds\\atomoxetine-hydrochloride.svg",
+    "Form": "Tablet",
+    "Strength": "500 mg",
+    "stock": 10,
+    "Manufacturer": "MediPlus Pharma",
+    "Forms": [
+      "Drops"
+    ]
+  },
+  {
+    "id": 19,
+    "Drug": "CAMPHOR, EUCALYPTUS OIL and MENTHOL",
+    "image": "Pics\\meds\\camphor-eucalyptus-oil-and-menthol.svg",
+    "Form": "Tablet",
+    "Strength": "5 mg/mL",
+    "stock": 10,
+    "Manufacturer": "Wellness Biotech",
+    "Forms": [
+      "Tablet"
+    ]
+  },
+  {
+    "id": 20,
+    "Drug": "Diphenhydramine Hydrochloride",
+    "image": "Pics\\meds\\diphenhydramine-hydrochloride.svg",
+    "Form": "Tablet",
+    "Strength": "100 mg/mL",
+    "stock": 10,
+    "Manufacturer": "CareGenix",
+    "Forms": [
+      "Capsule"
+    ]
+  },
+  {
+    "id": 21,
+    "Drug": "lamotrigine",
+    "image": "Pics\\meds\\lamotrigine.svg",
+    "Form": "Tablet",
+    "Strength": "1% w/w",
+    "stock": 10,
+    "Manufacturer": "PharmaNova",
+    "Forms": [
+      "Liquid",
+      "Syrup"
+    ]
+  },
+  {
+    "id": 22,
+    "Drug": "Acetaminophen",
+    "image": "Pics\\meds\\acetaminophen.svg",
+    "Form": "Tablet",
+    "Strength": "2% w/w",
+    "stock": 10,
+    "Manufacturer": "PrimeCare Pharmaceuticals",
+    "Forms": [
+      "Oral Solution"
+    ]
+  },
+  {
+    "id": 23,
+    "Drug": "polyethylene glycol",
+    "image": "Pics\\meds\\polyethylene-glycol.svg",
+    "Form": "Tablet",
+    "Strength": "5 mg",
+    "stock": 10,
+    "Manufacturer": "Vitalis Labs",
+    "Forms": [
+      "Injection"
+    ]
+  },
+  {
+    "id": 24,
+    "Drug": "Hydralazine Hydrochloride",
+    "image": "Pics\\meds\\hydralazine-hydrochloride.svg",
+    "Form": "Tablet",
+    "Strength": "10 mg",
+    "stock": 10,
+    "Manufacturer": "Apex Therapeutics",
+    "Forms": [
+      "Ointment"
+    ]
+  },
+  {
+    "id": 25,
+    "Drug": "Ramipril",
+    "image": "Pics\\meds\\ramipril.svg",
+    "Form": "Tablet",
+    "Strength": "25 mg",
+    "stock": 10,
+    "Manufacturer": "HealthCorp Laboratories",
+    "Forms": [
+      "Cream"
+    ]
+  },
+  {
+    "id": 26,
+    "Drug": "CAMPHOR (NATURAL), MENTHOL,METHYL SALICYLATE",
+    "image": "Pics\\meds\\camphor-natural-menthol-methyl-salicylate.svg",
+    "Form": "Tablet",
+    "Strength": "50 mg",
+    "stock": 10,
+    "Manufacturer": "MediPlus Pharma",
+    "Forms": [
+      "Gel"
+    ]
+  },
+  {
+    "id": 27,
+    "Drug": "Menthol",
+    "image": "Pics\\meds\\menthol.svg",
+    "Form": "Tablet",
+    "Strength": "100 mg",
+    "stock": 10,
+    "Manufacturer": "Wellness Biotech",
+    "Forms": [
+      "Drops"
+    ]
+  },
+  {
+    "id": 28,
+    "Drug": "Gabapentin",
+    "image": "Pics\\meds\\gabapentin.svg",
+    "Form": "Tablet",
+    "Strength": "250 mg",
+    "stock": 10,
+    "Manufacturer": "CareGenix",
+    "Forms": [
+      "Tablet"
+    ]
+  },
+  {
+    "id": 29,
+    "Drug": "Fexofenadine HCl",
+    "image": "Pics\\meds\\fexofenadine-hcl.svg",
+    "Form": "Tablet",
+    "Strength": "500 mg",
+    "stock": 10,
+    "Manufacturer": "PharmaNova",
+    "Forms": [
+      "Capsule"
+    ]
+  },
+  {
+    "id": 30,
+    "Drug": "Famotidine",
+    "image": "Pics\\meds\\famotidine.svg",
+    "Form": "Tablet",
+    "Strength": "5 mg/mL",
+    "stock": 10,
+    "Manufacturer": "PrimeCare Pharmaceuticals",
+    "Forms": [
+      "Liquid",
+      "Syrup"
+    ]
+  },
+  {
+    "id": 31,
+    "Drug": "Galantamine hydrobromide",
+    "image": "Pics\\meds\\galantamine-hydrobromide.svg",
+    "Form": "Tablet",
+    "Strength": "100 mg/mL",
+    "stock": 10,
+    "Manufacturer": "Vitalis Labs",
+    "Forms": [
+      "Oral Solution"
+    ]
+  },
+  {
+    "id": 32,
+    "Drug": "RISPERIDONE",
+    "image": "Pics\\meds\\risperidone.svg",
+    "Form": "Tablet",
+    "Strength": "1% w/w",
+    "stock": 10,
+    "Manufacturer": "Apex Therapeutics",
+    "Forms": [
+      "Injection"
+    ]
+  },
+  {
+    "id": 33,
+    "Drug": "Amlodipine Besylate",
+    "image": "Pics\\meds\\amlodipine-besylate.svg",
+    "Form": "Tablet",
+    "Strength": "2% w/w",
+    "stock": 10,
+    "Manufacturer": "HealthCorp Laboratories",
+    "Forms": [
+      "Ointment"
+    ]
+  },
+  {
+    "id": 34,
+    "Drug": "OCTINOXATE, OCTISALATE, OXYBENZONE, OCTOCRYLENE, and AVOBENZONE",
+    "image": "Pics\\meds\\octinoxate-octisalate-oxybenzone-octocrylene-and-avobenzone.svg",
+    "Form": "Tablet",
+    "Strength": "5 mg",
+    "stock": 10,
+    "Manufacturer": "MediPlus Pharma",
+    "Forms": [
+      "Cream"
+    ]
+  },
+  {
+    "id": 35,
+    "Drug": "Labetalol Hydrochloride",
+    "image": "Pics\\meds\\labetalol-hydrochloride.svg",
+    "Form": "Tablet",
+    "Strength": "10 mg",
+    "stock": 10,
+    "Manufacturer": "Wellness Biotech",
+    "Forms": [
+      "Gel"
+    ]
+  },
+  {
+    "id": 36,
+    "Drug": "Lovastatin",
+    "image": "Pics\\meds\\lovastatin.svg",
+    "Form": "Tablet",
+    "Strength": "25 mg",
+    "stock": 10,
+    "Manufacturer": "CareGenix",
+    "Forms": [
+      "Drops"
+    ]
+  },
+  {
+    "id": 37,
+    "Drug": "Ethyl Alcohol",
+    "image": "Pics\\meds\\ethyl-alcohol.svg",
+    "Form": "Tablet",
+    "Strength": "50 mg",
+    "stock": 10,
+    "Manufacturer": "PharmaNova",
+    "Forms": [
+      "Tablet"
+    ]
+  },
+  {
+    "id": 38,
+    "Drug": "Bupropion Hydrochloride",
+    "image": "Pics\\meds\\bupropion-hydrochloride.svg",
+    "Form": "Tablet",
+    "Strength": "100 mg",
+    "stock": 10,
+    "Manufacturer": "PrimeCare Pharmaceuticals",
+    "Forms": [
+      "Capsule"
+    ]
+  },
+  {
+    "id": 39,
+    "Drug": "OXYBENZONE, AVOBENZONE, OCTOCRYLENE",
+    "image": "Pics\\meds\\oxybenzone-avobenzone-octocrylene.svg",
+    "Form": "Tablet",
+    "Strength": "250 mg",
+    "stock": 10,
+    "Manufacturer": "Vitalis Labs",
+    "Forms": [
+      "Liquid",
+      "Syrup"
+    ]
+  },
+  {
+    "id": 40,
+    "Drug": "Salicylic Acid",
+    "image": "Pics\\meds\\salicylic-acid.svg",
+    "Form": "Tablet",
+    "Strength": "500 mg",
+    "stock": 10,
+    "Manufacturer": "Apex Therapeutics",
+    "Forms": [
+      "Oral Solution"
+    ]
+  }
 ]

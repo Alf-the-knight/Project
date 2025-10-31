@@ -1,0 +1,92 @@
+:root{
+  /* Dark minimalist theme variables */
+  --ux-accent: #3aa0ff; /* softer blue accent */
+  --ux-accent-2: #6be7ff;
+  --ux-bg: #0b0f12; /* page background */
+  --ux-surface: rgba(255,255,255,0.03); /* subtle light overlay */
+  --ux-card: rgba(255,255,255,0.04);
+  --ux-glass: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  --ux-ease: cubic-bezier(.2,.9,.2,1);
+  --ux-radius: 10px;
+  --ux-shadow-1: 0 8px 24px rgba(0,0,0,0.6);
+  --ux-shadow-2: 0 14px 40px rgba(0,0,0,0.7);
+  --ux-text: #e6eef8;
+  --ux-muted: #9aa6b2;
+}
+
+/* base smoothing */
+* { transition: background-color .25s var(--ux-ease), color .22s var(--ux-ease), box-shadow .25s var(--ux-ease), transform .22s var(--ux-ease); }
+html,body{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; background: var(--ux-bg); color: var(--ux-text); }
+
+/* subtle page backdrop overlay for depth */
+/* subtle vignette for depth but muted for eye comfort */
+body::before{
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(900px 450px at 8% 12%, rgba(58,160,255,0.03), transparent 12%), radial-gradient(700px 300px at 92% 82%, rgba(107,231,255,0.02), transparent 12%);
+  mix-blend-mode: overlay; opacity: .9;
+}
+
+/* Navbar polish */
+.navbar{ transition: backdrop-filter .45s var(--ux-ease), box-shadow .35s var(--ux-ease); }
+.navbar{ box-shadow: 0 4px 18px rgba(0,0,0,0.25); }
+.navbar a{ position: relative; overflow: visible; }
+.navbar a::after{ content: ''; position: absolute; left:0; right:0; bottom:-6px; height:3px; background: linear-gradient(90deg,var(--ux-accent),var(--ux-accent-2)); transform: scaleX(0); transform-origin: left center; transition: transform .32s var(--ux-ease); }
+.navbar a:hover::after{ transform: scaleX(1); }
+
+/* Buttons: modern glassy + ripple */
+.btn{ position: relative; overflow: hidden; display:inline-flex; align-items:center; gap:8px; justify-content:center; border-radius:var(--ux-radius); padding:10px 14px; background: linear-gradient(180deg,var(--ux-accent), #0070e6); color: #fff; box-shadow: var(--ux-shadow-1); border: 1px solid rgba(255,255,255,0.06); }
+.btn:focus{ outline: none; box-shadow: 0 8px 30px rgba(11,95,255,0.18), 0 0 0 4px rgba(11,95,255,0.06); transform: translateY(-1px) scale(1.002); }
+.btn:hover{ transform: translateY(-4px); box-shadow: var(--ux-shadow-2); }
+.btn .ripple{ position:absolute; border-radius:50%; pointer-events:none; transform:scale(0); opacity: .9; background: rgba(255,255,255,0.25); animation: ripple .6s var(--ux-ease); }
+@keyframes ripple{ to { transform: scale(6); opacity: 0; }}
+
+/* Cards with subtle 3D lift */
+.card{ background: var(--ux-card); border-radius: calc(var(--ux-radius) - 2px); padding: 18px; box-shadow: var(--ux-shadow-1); border: 1px solid rgba(255,255,255,0.03); transform: translateY(6px) scale(.995); opacity: 0; transition: transform .6s var(--ux-ease), opacity .6s var(--ux-ease), box-shadow .35s var(--ux-ease); }
+.card.in-view{ transform: translateY(0) scale(1); opacity: 1; }
+.card:hover{ transform: translateY(-6px) scale(1.002); box-shadow: 0 16px 40px rgba(3,10,30,0.62); }
+
+/* Table improvements */
+table{ width:100%; border-collapse:collapse; background: transparent; color: var(--ux-text); }
+thead th{ text-align:left; padding:10px 12px; font-weight:700; color: var(--ux-text); border-bottom: 1px solid rgba(255,255,255,0.04); }
+tbody td{ padding:12px; background: rgba(255,255,255,0.015); border-bottom: 1px solid rgba(255,255,255,0.02); }
+tr:hover td{ background: rgba(255,255,255,0.02); }
+
+/* Search inputs */
+.search-bar input[type=text]{ padding:10px 12px; border-radius: 10px; border:1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: var(--ux-text); }
+
+/* Toast animation */
+.toast{ transform-origin: right bottom; opacity: 0; transform: translateY(8px) scale(.98); transition: transform .36s var(--ux-ease), opacity .36s var(--ux-ease); }
+.toast.show{ opacity:1; transform: translateY(0) scale(1); }
+
+/* small utilities */
+.fade-quick{ transition-duration: .28s; }
+
+/* Centered page wrapper and card variants used across login/register/patient/admin pages */
+.centered-page {
+  display:flex; align-items:flex-start; justify-content:center; padding:40px 18px; min-height:100vh; box-sizing:border-box;
+}
+.centered-card {
+  width:100%; max-width:1100px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:24px; box-shadow: var(--ux-shadow-1); color: var(--ux-text);
+}
+.btn-secondary{ background:transparent; border:1px solid rgba(11,95,255,0.12); color:var(--ux-accent); font-weight:700; }
+.btn-small{ padding:8px 10px; font-size:0.95rem; border-radius:8px; }
+
+/* make .card elements from admin.css and ui-ux mix nicely on light background */
+.card { /* ensure cards use dark surface */ color: var(--ux-text); }
+
+/* Modal styles for admin add dialogs */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(2,6,10,0.6); display: none; align-items: center; justify-content: center; z-index: 9999; }
+.modal-backdrop.show { display: flex; }
+.modal-card { width: 100%; max-width: 720px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: 12px; padding: 20px; box-shadow: var(--ux-shadow-2); }
+.modal-card h3{ margin:0 0 8px; color: var(--ux-text); }
+.modal-form { display: grid; grid-template-columns: 1fr 1fr; gap:12px; }
+.modal-form .full { grid-column: 1 / -1; }
+.modal-form label{ font-weight:700; font-size:0.9rem; color: var(--ux-muted); }
+.modal-form input, .modal-form textarea, .modal-form select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.01); color: var(--ux-text); }
+.modal-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:12px; }
+.modal-actions .btn { min-width:110px; }
+.modal-cancel { background:transparent; border:1px solid rgba(58,160,255,0.08); color:var(--ux-accent); }
+
+/* respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }

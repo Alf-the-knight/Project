@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Medications — Inventory & Prescribe</title>
+  <link rel="stylesheet" href="ui-ux.css">
+  <link rel="stylesheet" href="medicines.css">
+</head>
+<body>
+  <div class="meds-container">
+    <header class="meds-header">
+      <div class="left">
+        <h1>Medications Inventory</h1>
+        <p class="subtitle">Search, view details, and prescribe — connected to medicines.json</p>
+      </div>
+      <div class="right">
+        <a class="btn" href="doctor.html">Back to Dashboard</a>
+      </div>
+    </header>
+
+    <div class="meds-actions">
+      <input id="medSearch" placeholder="Search medications by name" />
+      <select id="filterStock"><option value="">All stock</option><option value="low">Low stock (&lt;=5)</option><option value="out">Out of stock</option></select>
+      <button class="btn" id="searchBtn">Search</button>
+    </div>
+
+    <div id="medsGrid" class="meds-grid"></div>
+
+    <div id="medDetails" class="med-details" style="display:none"></div>
+  </div>
+
+  <script src="medicines.js"></script>
+</body>
+</html>
